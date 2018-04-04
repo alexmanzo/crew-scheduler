@@ -1,9 +1,9 @@
 language: node_js
 node_js: node
-deploy:app: fierce-wildwood-43879
+deploy: 
   provider: heroku
   api_key:
     secure: jycVdx2WjitCojnPNFBwNFvHehti/PxOzoLBdOFpgkKgqSprWOWGftjTsBQdZ1aTb/P1Z9QXVng9QMHcyTmrAePW3D2WIzT+idzgt9SLVKSxsG4ooVYSgHhnFPoppsPus1wbys4pbRx9RtHiZsiEo9z0Bx0uiZJyrcgAZI3eVSkR9qf833l9pjTdxB+io7D/9iRB2lXjYrdK+gfJodIMSqhkvhiSluIMUqF/LlIz7rJmgEbMa2e23eeboV0yi6T1vzYEVcpQqHevWtO1s+aSIMGhNyVrvRdps6yl5bK6NettIe/hnvKPtaQl3EE39C2h20Yf4hTOZRa/UJVhvGxGHuXqeHrckwc94VfP8AnP3giWpGhLzAFJwPbjMXbCf8on20IQnZbs3tI+3altcFuEHI3s5wRpi+5L8M6jY52rtPrk4OerKCxEz656uP+VLKjBYvjiGdy7EyW6R1gaywWj6HG34T0XJdJGuTALaHSrge5z3d1rWXHKH0nV+aJgSTJxP2PQST7/2/QmCVUrNKZIoobiB//uNo/On/1jReixJeXKgRvXh3gHga7kk+cXeZulLKZHO6mjuDVWsEM2XpsQSctEH0U5Zf51mrW6xTZBCR2LRfcG9YUBPVfgp2mv2/0o9lKKE93wr4LQ6jJx+x+TOGwWqyfRPUwLzAmhNu+EMEQ=
-  app: crew-scheduler
+  app: fierce-wildwood-43879
   on:
     repo: michellemcodes/crew-scheduler
