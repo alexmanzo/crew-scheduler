@@ -43,6 +43,7 @@ const MOCK_EVENTS = {
 	]
 }
 
+
 function getEvents(callback) {
     setTimeout(() => { callback(MOCK_EVENTS) }, 100)
 }

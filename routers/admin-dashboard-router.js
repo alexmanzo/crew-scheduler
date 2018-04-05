@@ -3,6 +3,8 @@ const router = express.Router()
 const mongoose = require('mongoose')
 
 
-router.get('/admin-dashboard', (req, res => {
-	window.load = 'admin-dashboard.html'
+router.get('/', (req, res) => {
+	res.sendFile('admin-dashboard.html', {"root": "./public"})
 })
+
+module.exports = router

@@ -7,7 +7,7 @@ const { app, server } = require('../server')
 
 chai.use(chaiHttp)
 
-describe('HTML up and working', function() {
+describe('Static Pages Working', function() {
 	it('should verify root works', function() {
 		return chai.request(app)
 		.get('/')
@@ -16,17 +16,24 @@ describe('HTML up and working', function() {
 		})
 	})
 
-	it('should verify dashboard works', function() {
+	it('should verify admin dashboard works', function() {
 		return chai.request(app)
-		.get('/admin-dashboard.html')
+		.get('/admin-dashboard')
 		.then(function(res) {
 			expect(res).to.have.status(200)
 		})
 	})
 
+	it('should verify crew dashboard works', function() {
+		return chai.request(app)
+		.get('/crew-dashboard')
+		.then(function(res) {
+			expect(res).to.have.status(200)
+		})
+	})
 	it('should verify availability works', function() {
 		return chai.request(app)
-		.get('/availability.html')
+		.get('/availability')
 		.then(function(res) {
 			expect(res).to.have.status(200)
 		})
@@ -34,7 +41,7 @@ describe('HTML up and working', function() {
 
 	it('should verify create-events works', function() {
 		return chai.request(app)
-		.get('/create-events.html')
+		.get('/create-events')
 		.then(function(res) {
 			expect(res).to.have.status(200)
 		})
@@ -42,7 +49,7 @@ describe('HTML up and working', function() {
 
 	it('should verify assign-crew works', function() {
 		return chai.request(app)
-		.get('/assign-crew.html')
+		.get('/assign-crew')
 		.then(function(res) {
 			expect(res).to.have.status(200)
 		})
