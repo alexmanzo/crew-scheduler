@@ -18,7 +18,7 @@ describe('HTML up and working', function() {
 
 	it('should verify dashboard works', function() {
 		return chai.request(app)
-		.get('/dashboard.html')
+		.get('/admin-dashboard.html')
 		.then(function(res) {
 			expect(res).to.have.status(200)
 		})

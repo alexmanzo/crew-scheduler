@@ -49,13 +49,8 @@ function getEvents(callback) {
 
 function displayEvents(data) {
     for (index in data.events) {
-       $('.container').append(
-        `<p>date: ${data.events[index].date}</p>
-         <p>time: ${data.events[index].time}</p>
-         <p>call time: ${data.events[index].call}</p>
-         <p>sport: ${data.events[index].sport}</p>
-         <p>opponent: ${data.events[index].opponent}</p>
-         <p>location: ${data.events[index].location}</p>`
+       $('.schedule').append(
+        `<div class="event">${data.events[index].date} ${data.events[index].time} ${data.events[index].call} ${data.events[index].sport} vs. ${data.events[index].opponent} ${data.events[index].location}</div>`
         )
     }
 }
@@ -64,6 +59,21 @@ function getAndDisplayEvents() {
     getEvents(displayEvents);
 }
 
-$(function() {
-    getAndDisplayEvents();
+
+$('#new-event').on('click', (e) => {
+	e.preventDefault()
+	window.location = 'create-events.html'
 })
+
+
+$('#assign-crew').on('click', (e) => {
+	e.preventDefault()
+	window.location = '/assign-crew.html'
+})
+
+$('#edit-availability').on('click', (e) => {
+	e.preventDefault()
+	window.location = 'availability.html'
+})
+
+$(getAndDisplayEvents())
