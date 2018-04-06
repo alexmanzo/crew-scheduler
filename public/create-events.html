@@ -4,7 +4,44 @@
 	<title></title>
 </head>
 <body>
-	<p>create events</p>
+	<h1>create events</h1>
+	<form>
+		<fieldset>
+			<label for="date">Date</label>
+			<input id="date" name="date" type="date">
+		</fieldset>
+		<fieldset>
+			<label for="time">Event Time</label>
+			<input id="time" name="time" type="time">
+		</fieldset>
+		<fieldset>
+			<label for="call">Call Time</label>
+			<input id="call" name="call" type="time">
+		</fieldset>
+		<fieldset>
+		<label for="sport">Sport</label>
+			<select name="sport" id="sport">
+				<option disabled selected>Choose Option</option>
+			</select>
+		</fieldset>
+		<fieldset>
+		<label for="opponent">Opponent</label>
+			<select name="opponent" id="opponent">
+				<option disabled selected>Choose Option</option>
+			</select>
+		</fieldset>
+		<fieldset>
+		<label for="location">Location</label>
+			<select name="location" id="location">
+				<option disabled selected>Choose Option</option>
+			</select>
+		</fieldset>
+		<fieldset id="positions">
+		<legend>Positions</legend>
+
+		</fieldset>
+		<button type="submit">Create</button>
+	</form>
 	<div class="container"></div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/create-events.js"></script>	

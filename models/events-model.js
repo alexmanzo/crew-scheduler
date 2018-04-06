@@ -1,14 +1,28 @@
 const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
 
 
-const EventSchema = new mongoose.Schema({
+const eventSchema = new mongoose.Schema({
 	date: {type: String, required: true},
 	time: {type: String, required: true},
-	call time: {type: String, required: true},
+	call: {type: String, required: true},
 	sport: {type: String, required: true},
 	opponent: {type: String, required: true},
 	location: {type: String, required: true},
-	crew positions: {type: Array, required: true}
+	positions: {type: Array, required: true}
 })
 
-module.exports = mongoose.model('Event', EventSchema)
+eventSchema.methods.serialize = function() {
+	return {
+		id: this._id,
+		date: this.date,
+		time: this.time,
+		call: this.call,
+		sport: this.sport,
+		opponent: this.opponent,
+		location: this.location,
+		positions: this.positions
+	}
+}
+
+module.exports = mongoose.model('Event', eventSchema)
