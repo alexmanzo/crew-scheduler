@@ -191,6 +191,7 @@ addNewValuesToForm()
 
 
 // Handle Form Submit and Create Event
+
 function handleFormSubmit(callback) {
 	$('.js-new-event-form').on('submit', e => {
 		e.preventDefault()
@@ -201,36 +202,60 @@ function handleFormSubmit(callback) {
 		let eventOpponent = $('#opponent').val()
 		let eventLocation = $('#location').val()
 		let eventPositions = $("#positions input:checkbox:checked").map(function(){
-      		return $(this).val();
+      		return $(this).val()
     		}).get()
+		console.log(eventTime)
+		console.log(eventCall)
 
-		$.ajax({
-			method: 'POST', 
-			url: '/api/events',
-			data: JSON.stringify({
-				date: eventDate,
-				time: eventTime,
-				call: eventCall,
-				sport: eventSport,
-				opponent: eventOpponent,
-				location: eventLocation,
-				positions: eventPositions
-			}),
-			contentType: 'application/json',
-			dataType: 'json',
-			success: callback,
-			error: error => console.log(error)
-		})
+		if ($('#date').val() == ''){
+			$('.message').html(`<p>Please enter a date.</p>`)
+		} else if ($('#time').val() == ''){
+				$('.message').html(`<p>Please enter an event time.</p>`)
+			} else if ($('#call').val() == '') {
+					$('.message').html(`<p>Please enter a call time.</p>`)
+				} else if ($('#sport').val() == null) {
+						$('.message').html(`<p>Please enter a sport.</p>`)
+					} else if ($('#opponent').val() == null) {
+							$('.message').html(`<p>Please enter an opponent</p>`)
+						} else if ($('#location').val() == null) {
+								$('.message').html(`<p>Please enter a location</p>`)
+							} else if (eventPositions.length == 0) {
+									$('.message').html(`<p>Please specify available crew positions.</p>`)
+								} else if (eventTime <= eventCall) {
+										$('.message').html(`<p>Call time must be before event time.</p>`)
+									} else {
+									$.ajax({
+										method: 'POST', 
+										url: '/api/events',
+										data: JSON.stringify({
+											date: eventDate,
+											time: eventTime,
+											call: eventCall,
+											sport: eventSport,
+											opponent: eventOpponent,
+											location: eventLocation,
+											positions: eventPositions
+										}),
+										contentType: 'application/json',
+										dataType: 'json',
+										success: callback,
+										error: error => console.log(error)
+									})
+		}
 	})
 }
 
 function displaySuccessMessage(data) {
-	$('.success').html(`<p>Your event was created successfully!</p>`)
+	$('.message').html(`<p>Your event was created successfully!</p>`)
 	$('.js-new-event-form').trigger('reset')
 } 
 
 handleFormSubmit(displaySuccessMessage)
 
+$('#dashboard').on('click', (e) => {
+	e.preventDefault()
+	window.location = 'admin-dashboard.html'
+})
 
 
 
