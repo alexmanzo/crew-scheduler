@@ -101,4 +101,27 @@ describe('events API', function() {
 
 		})
 	})
+
+	describe('POST endpoint', function() {
+		it('should add a new event', function() {
+			const newEvent = generateEventData()
+
+			return chai.request(app)
+				.post('/api/events')
+				.send(newEvent)
+				.then(function(res){
+					expect(res).to.have.status(201)
+					expect(res).to.be.json
+					expect(res.body).to.be.a('object')
+					expect(res.body).to.include.keys('id', 'date', 'time', 'call', 'sport', 'opponent', 'location', 'positions')
+					expect(res.body.id).to.not.be.null
+					expect(res.body.date).to.equal(newEvent.date)
+					expect(res.body.time).to.equal(newEvent.time)
+					expect(res.body.call).to.equal(newEvent.call)
+					expect(res.body.sport).to.equal(newEvent.sport)
+					expect(res.body.opponent).to.equal(newEvent.opponent)
+					expect(res.body.location).to.equal(newEvent.location)
+				})
+		})
+	})
 })
