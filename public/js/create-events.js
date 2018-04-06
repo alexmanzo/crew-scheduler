@@ -129,10 +129,36 @@ function addNewOpponentToForm(data) {
 			)
 }
 
+function getNewLocation(callback) {
+	$('.js-new-location-button').on('click', e => {
+		e.preventDefault()
+		let newLocation = $('.js-new-location').val()
+		$('#new-location').val("")
+		$.ajax({
+			method: 'POST', 
+			url: '/api/locations',
+			data: JSON.stringify({location: newLocation}),
+			contentType: 'application/json',
+			dataType: 'json',
+			success: callback,
+			error: error => console.log(error)
+		})
+	})
+}
+
+function addNewLocationToForm(data) {
+	$("#location").append(
+			`<option value="${data.location}">${data.location}</option>`
+			)
+}
+
 function addNewValuesToForm() {
 	getNewSport(addNewSportToForm)
 	getNewOpponent(addNewOpponentToForm)
+	getNewLocation(addNewLocationToForm)
 }
+
+
 
 addNewValuesToForm()
 

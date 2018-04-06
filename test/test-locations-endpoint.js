@@ -89,4 +89,22 @@ describe('locations API', function() {
 
 		})
 	})
+
+	describe('POST endpoint', function() {
+		it('should add a new location', function() {
+			const newLocation = generateLocationData()
+
+			return chai.request(app)
+				.post('/api/locations')
+				.send(newLocation)
+				.then(function(res){
+					expect(res).to.have.status(201)
+					expect(res).to.be.json
+					expect(res.body).to.be.a('object')
+					expect(res.body).to.include.keys('id', 'location')
+					expect(res.body.id).to.not.be.null
+					expect(res.body.location).to.equal(newLocation.location)
+				})
+		})
+	})
 })
