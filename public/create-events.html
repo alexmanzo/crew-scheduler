@@ -5,7 +5,7 @@
 </head>
 <body>
 	<h1>create events</h1>
-	<form>
+	<form class="js-new-event-form">
 		<fieldset>
 			<label for="date">Date</label>
 			<input id="date" name="date" type="date" required>
@@ -47,8 +47,10 @@
 			<input type="text" name="new-position" id="new-position" class="js-new-position"/>
 			<button name="new-position-button" class="js-new-position-button">Add New</button>	
 		</fieldset>
-		<button type="submit">Create</button>
+		<button type="submit" class="js-submit">Create</button>
 	</form>
+	<div class="success">
+	</div>
 	<div class="container"></div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/create-events.js"></script>	

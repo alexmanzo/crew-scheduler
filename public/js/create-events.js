@@ -190,6 +190,50 @@ function addNewValuesToForm() {
 addNewValuesToForm()
 
 
+// Handle Form Submit and Create Event
+function handleFormSubmit(callback) {
+	$('.js-new-event-form').on('submit', e => {
+		e.preventDefault()
+		let eventDate = $('#date').val()
+		let eventTime = $('#time').val()
+		let eventCall = $('#call').val()
+		let eventSport = $('#sport').val()
+		let eventOpponent = $('#opponent').val()
+		let eventLocation = $('#location').val()
+		let eventPositions = $("#positions input:checkbox:checked").map(function(){
+      		return $(this).val();
+    		}).get()
+
+		$.ajax({
+			method: 'POST', 
+			url: '/api/events',
+			data: JSON.stringify({
+				date: eventDate,
+				time: eventTime,
+				call: eventCall,
+				sport: eventSport,
+				opponent: eventOpponent,
+				location: eventLocation,
+				positions: eventPositions
+			}),
+			contentType: 'application/json',
+			dataType: 'json',
+			success: callback,
+			error: error => console.log(error)
+		})
+	})
+}
+
+function displaySuccessMessage(data) {
+	$('.success').html(`<p>Your event was created successfully!</p>`)
+	$('.js-new-event-form').trigger('reset')
+} 
+
+handleFormSubmit(displaySuccessMessage)
+
+
+
+
 
 
 
