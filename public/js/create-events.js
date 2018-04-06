@@ -87,7 +87,7 @@ function getNewSport(callback) {
 	$('.js-new-sport-button').on('click', e => {
 		e.preventDefault()
 		let newSport = $('.js-new-sport').val()
-
+		$('#new-sport').val("")
 		$.ajax({
 			method: 'POST',
 			url: '/api/sports',
@@ -106,9 +106,32 @@ function addNewSportToForm(data) {
 			)
 }
 
+function getNewOpponent(callback) {
+	$('.js-new-opponent-button').on('click', e => {
+		e.preventDefault()
+		let newOpponent = $('.js-new-opponent').val()
+		$('#new-opponent').val("")
+		$.ajax({
+			method: 'POST', 
+			url: '/api/opponents',
+			data: JSON.stringify({opponent: newOpponent}),
+			contentType: 'application/json',
+			dataType: 'json',
+			success: callback,
+			error: error => console.log(error)
+		})
+	})
+}
+
+function addNewOpponentToForm(data) {
+	$("#opponent").append(
+			`<option value="${data.opponent}">${data.opponent}</option>`
+			)
+}
 
 function addNewValuesToForm() {
 	getNewSport(addNewSportToForm)
+	getNewOpponent(addNewOpponentToForm)
 }
 
 addNewValuesToForm()
