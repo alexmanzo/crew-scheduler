@@ -34,16 +34,16 @@ function tearDownDb() {
 }
 
 describe('Sports API', function() {
-	before(function() {
+	before(function(){
 		return runServer(TEST_DATABASE_URL)
 	})
 
-	beforeEach(function() {
+	beforeEach(function(){
 		return seedSportData()
 	})
 
 	afterEach(function() {
-		tearDownDb()
+		return tearDownDb()
 	})
 
 	after(function() {
@@ -87,6 +87,24 @@ describe('Sports API', function() {
 					expect(resSport.sport).to.equal(sport.sport)
 				})
 
+		})
+	})
+
+	describe('POST endpoint', function() {
+		it('should add a new sport', function() {
+			const newSport = generateSportData()
+
+			return chai.request(app)
+				.post('/api/sports')
+				.send(newSport)
+				.then(function(res){
+					expect(res).to.have.status(201)
+					expect(res).to.be.json
+					expect(res.body).to.be.a('object')
+					expect(res.body).to.include.keys('id', 'sport')
+					expect(res.body.id).to.not.be.null
+					expect(res.body.sport).to.equal(newSport.sport)
+				})
 		})
 	})
 })

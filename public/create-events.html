@@ -8,37 +8,44 @@
 	<form>
 		<fieldset>
 			<label for="date">Date</label>
-			<input id="date" name="date" type="date">
+			<input id="date" name="date" type="date" required>
 		</fieldset>
 		<fieldset>
 			<label for="time">Event Time</label>
-			<input id="time" name="time" type="time">
+			<input id="time" name="time" type="time" required>
 		</fieldset>
 		<fieldset>
 			<label for="call">Call Time</label>
-			<input id="call" name="call" type="time">
+			<input id="call" name="call" type="time" required>
 		</fieldset>
 		<fieldset>
 		<label for="sport">Sport</label>
-			<select name="sport" id="sport">
-				<option disabled selected>Choose Option</option>
+			<select name="sport" id="sport" required>
+				<option disabled selected >Choose Option</option>
 			</select>
+			<input type="text" name="new-sport" class="js-new-sport"/>
+			<button name="new-sport-button" class="js-new-sport-button">Add New</button>
 		</fieldset>
 		<fieldset>
 		<label for="opponent">Opponent</label>
-			<select name="opponent" id="opponent">
+			<select name="opponent" id="opponent" required>
 				<option disabled selected>Choose Option</option>
 			</select>
+			<input type="text" name="new-opponent" class="js-new-opponent"/>
+			<button name="new-opponent-button" class="js-new-opponent-button">Add New</button>
 		</fieldset>
 		<fieldset>
-		<label for="location">Location</label>
+		<label for="location">Location</label required>
 			<select name="location" id="location">
 				<option disabled selected>Choose Option</option>
 			</select>
+			<input type="text" name="new-location" class="js-new-location"/>
+			<button name="new-location-button" class="js-new-location-button">Add New</button>
 		</fieldset>
-		<fieldset id="positions">
-		<legend>Positions</legend>
-
+		<fieldset id="positions" required>
+			<legend>Positions</legend>
+			<input type="text" name="new-position" class="js-new-position"/>
+			<button name="new-position-button" class="js-new-position-button">Add New</button>	
 		</fieldset>
 		<button type="submit">Create</button>
 	</form>

@@ -1,3 +1,4 @@
+//API Requests to populate form data
 function getSportsForForm(callback) {
     $.ajax({
     	method: 'GET',
@@ -78,6 +79,41 @@ function populateAllForms() {
 	getLocationsForForm(populateFormWithLocations)
 }
 
-
 populateAllForms()
+
+// Add new values to API
+
+function getNewSport(callback) {
+	$('.js-new-sport-button').on('click', e => {
+		e.preventDefault()
+		let newSport = $('.js-new-sport').val()
+
+		$.ajax({
+			method: 'POST',
+			url: '/api/sports',
+			data: JSON.stringify({sport: newSport}),
+			contentType: 'application/json',
+			dataType: 'json',
+			success: callback,
+			error: error => console.log(error)
+		})
+	})
+}
+
+function addNewSportToForm(data) {
+	$("#sport").append(
+			`<option value="${data.sport}">${data.sport}</option>`
+			)
+}
+
+
+function addNewValuesToForm() {
+	getNewSport(addNewSportToForm)
+}
+
+addNewValuesToForm()
+
+
+
+
 
