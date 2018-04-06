@@ -1,7 +1,11 @@
 const express = require('express')
+const app = express()
 const router = express.Router()
+const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
 
+const jsonParser = bodyParser.json()
 const Position = require('../models/positions-model')
 
 
@@ -17,6 +21,17 @@ router.get('/', (req, res) => {
 		})
 })
 
+router.post('/', jsonParser, (req, res) => {
+	Position
+		.create({
+			position: req.body.position
+		})
+		.then(position => res.status(201).json(position.serialize()))
+		.catch(err => {
+			console.error(err)
+			res.status(500).json({error: 'Something went wrong'})
+		})
+})
 
 module.exports = router
 

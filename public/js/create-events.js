@@ -152,10 +152,37 @@ function addNewLocationToForm(data) {
 			)
 }
 
+function getNewPosition(callback) {
+	$('.js-new-position-button').on('click', e => {
+		e.preventDefault()
+		let newPosition = $('.js-new-position').val()
+		$('#new-position').val("")
+		$.ajax({
+			method: 'POST', 
+			url: '/api/positions',
+			data: JSON.stringify({position: newPosition}),
+			contentType: 'application/json',
+			dataType: 'json',
+			success: callback,
+			error: error => console.log(error)
+		})
+	})
+}
+
+function addNewPositionToForm(data) {
+	$("#positions").append(
+			`<div>
+				<input type ="checkbox" id="${data.position}" name="position" value="${data.position}">
+				<label for="${data.position}">${data.position}</label>
+			</div>`
+			)
+}
+
 function addNewValuesToForm() {
 	getNewSport(addNewSportToForm)
 	getNewOpponent(addNewOpponentToForm)
 	getNewLocation(addNewLocationToForm)
+	getNewPosition(addNewPositionToForm)
 }
 
 
