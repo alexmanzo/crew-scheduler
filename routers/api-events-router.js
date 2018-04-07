@@ -4,6 +4,7 @@ const router = express.Router()
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
+const moment = require('moment')
 
 const jsonParser = bodyParser.json()
 const Event = require('../models/events-model')
@@ -24,9 +25,9 @@ router.get('/', (req, res) => {
 router.post('/', jsonParser, (req, res) => {
 	Event
 		.create({
-				date: req.body.date,
-				time: req.body.time,
-				call: req.body.call,
+				date: moment(req.body.date, 'YYYY-MM-DD').format('dddd MM-DD-YYYY'),
+				time: moment(req.body.time, 'HHmm').format('hh:mm A'),
+				call: moment(req.body.call, 'HHmm').format('hh:mm A'),
 				sport: req.body.sport,
 				opponent: req.body.opponent,
 				location: req.body.location,
