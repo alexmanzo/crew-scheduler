@@ -11,9 +11,8 @@ $('.login-form').on('submit', event => {
 		dataType: 'json',
 		success: response => {
 			localStorage.setItem('token', response.authToken)
-			window.location = "dashboard.html"
+			window.location = "admin-dashboard.html"
 		},
 		error: error => console.log(error)
-
 	})
 })

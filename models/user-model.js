@@ -14,7 +14,11 @@ const UserSchema = mongoose.Schema({
 		required: true
 	},
 	firstName: String,
-	lastName: String
+	lastName: String,
+	role: {
+		type: String,
+		required: true
+	}
 })
 
 UserSchema.methods.serialize = function() {
