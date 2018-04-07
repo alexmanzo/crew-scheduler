@@ -23,6 +23,9 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', jsonParser, (req, res) => {
+	if (req.body.opponent == '') {
+		res.status(400).json({error: 'No opponent entered'})
+	}
 	Opponent
 		.create({
 			opponent: req.body.opponent

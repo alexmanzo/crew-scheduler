@@ -22,6 +22,9 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', jsonParser, (req, res) => {
+	if (req.body.position == '') {
+		res.status(400).json({error: 'No position entered'})
+	}
 	Position
 		.create({
 			position: req.body.position

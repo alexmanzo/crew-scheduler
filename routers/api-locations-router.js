@@ -23,6 +23,9 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', jsonParser, (req, res) => {
+	if (req.body.location == '') {
+		res.status(400).json({error: 'No location added'})
+	}
 	Location
 		.create({
 			location: req.body.location

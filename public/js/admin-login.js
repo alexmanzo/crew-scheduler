@@ -13,6 +13,8 @@ $('.login-form').on('submit', event => {
 			localStorage.setItem('token', response.authToken)
 			window.location = "admin-dashboard.html"
 		},
-		error: error => console.log(error)
+		error: error => {
+			$('.message').html('Username or password incorrect')
+		}
 	})
 })

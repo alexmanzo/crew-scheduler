@@ -23,6 +23,10 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', jsonParser, (req, res) => {
+	if (req.body.sport == '') {
+		res.status(400).json({error: 'No sport added'})
+	}
+
 	Sport
 		.create({
 			sport: req.body.sport
@@ -33,6 +37,38 @@ router.post('/', jsonParser, (req, res) => {
 			res.status(500).json({error: 'Something went wrong'})
 		})
 })
+
+router.put('/:id', jsonParser, (req, res) => {
+	if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+    	res.status(400).json({
+      		error: 'Request path id and request body id values must match'
+    	})
+  	}
+
+  	let updatedSport = {
+  		id: req.params.id,
+		sport: req.body.sport
+  	}
+
+  	Sport
+  		.findByIdAndUpdate(req.params.id, {$set: updatedSport}, { new: true})
+  		.then(updatedPost => res.status(204).end())
+  		.catch(err => res.status(500).json({message: 'something went wrong'}))	
+})
+
+router.delete('/:id', (req, res) => {
+	Sport
+		.findByIdAndRemove(req.params.id)
+		.then(() => {
+			res.status(204).json({message: 'success'})
+		})
+		.catch(err => {
+			console.error(err)
+			res.status(500).json({error: 'something went wrong'})
+		})
+})
+
+
 
 
 module.exports = router
