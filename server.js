@@ -1,7 +1,11 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const morgan = require('morgan')
+const passport = require('passport')
+
+const { router: localStrategy, jwtStrategy } = require('./strategies')
 
 mongoose.Promise = global.Promise
 
@@ -15,11 +19,14 @@ const sportsRouter = require('./routers/api-sports-router')
 const opponentRouter = require('./routers/api-opponents-router')
 const positionRouter = require('./routers/api-positions-router')
 const locationRouter = require('./routers/api-locations-router')
+const authRouter = require('./routers/api-auth-router')
+const userRouter = require('./routers/api-user-router')
 
 const { PORT, DATABASE_URL } = require('./config')
 
 app.use(express.static('public'))
 app.use(morgan('common'))
+
 app.use('/admin-dashboard', adminDashboardRouter)
 app.use('/crew-dashboard', crewDashboardRouter)
 app.use('/assign-crew', assignCrewRouter)
@@ -30,6 +37,27 @@ app.use('/api/sports', sportsRouter)
 app.use('/api/opponents', opponentRouter)
 app.use('/api/positions', positionRouter)
 app.use('/api/locations', locationRouter)
+
+
+
+// CORS
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE')
+  if (req.method === 'OPTIONS') {
+    return res.send(204)
+  }
+  next()
+})
+
+passport.use(localStrategy)
+passport.user(jwtStrategy)
+
+app.use('/api/auth/', authRouter)
+app.use('/api/users', userRouter)
+
+const jwtAuth = passport.authenticate('jwt', { session: false })
 
 let server;
 
