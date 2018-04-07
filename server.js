@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const passport = require('passport')
 
-const { router: localStrategy, jwtStrategy } = require('./strategies')
+const { localStrategy, jwtStrategy } = require('./strategies')
 
 mongoose.Promise = global.Promise
 
@@ -37,6 +37,8 @@ app.use('/api/sports', sportsRouter)
 app.use('/api/opponents', opponentRouter)
 app.use('/api/positions', positionRouter)
 app.use('/api/locations', locationRouter)
+app.use('/api/auth', authRouter)
+app.use('/api/users', userRouter)
 
 
 
@@ -52,10 +54,7 @@ app.use(function (req, res, next) {
 })
 
 passport.use(localStrategy)
-passport.user(jwtStrategy)
-
-app.use('/api/auth/', authRouter)
-app.use('/api/users', userRouter)
+passport.use(jwtStrategy)
 
 const jwtAuth = passport.authenticate('jwt', { session: false })
 
