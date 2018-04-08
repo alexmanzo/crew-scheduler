@@ -229,11 +229,7 @@ function handleFormSubmit(callback) {
                 dataType: 'json',
                 success: callback,
                 error: error => {
-                	if (eventTime <= eventCall) {
-						$('.message').html(`<p>Call time must be before event time.</p>`)
-					} else {
-						$('.message').html(`<p>Please fill out all fields</p>`)
-						}
+					$('.message').html(`<p>Please fill out all fields</p>`)
 				}		
 			})	
 	})
@@ -250,3 +246,4 @@ $('#dashboard').on('click', (e) => {
     e.preventDefault()
     window.location = 'admin-dashboard.html'
 })
+
