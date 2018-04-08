@@ -58,7 +58,7 @@ function handleSelectCategory() {
                     if (category === 'sports') {
                         for (index in response) {
                             $(".category-values").append(
-                            `<div>
+                            `<div id="${category}">
                                 <p class="${response[index].sport}">${response[index].sport}</p>
                                 <p class="id" id="${response[index].id}" hidden>${response[index].id}</p>
                                 <button class="edit-button">Edit</button>
@@ -69,25 +69,31 @@ function handleSelectCategory() {
                         } else if (category === 'opponents') {
                             for (index in response) {
                                 $(".category-values").append(
-                                `<p class="${response[index].opponent}">${response[index].opponent}</p>
-                                <p>edit</p><p>delete</p>
+                                `<div id="${category}">
+                                <p class="${response[index].opponent}">${response[index].opponent}</p>
+                                <p class="id" id="${response[index].id}" hidden>${response[index].id}</p>
                                 <button class="edit-button">Edit</button>
                                 <button class="delete-button">Delete</button>
+                                </div>
                                  `)
                                 }
                             } else if (category === 'locations') {
                                 for (index in response) {
                                     $(".category-values").append(
-                                    `<p class="${response[index].location}">${response[index].location}</p>
+                                    `<div id="${category}">
+                                    <p class="${response[index].location}">${response[index].location}</p>
+                                    <p class="id" id="${response[index].id}" hidden>${response[index].id}</p>
                                     <button class="edit-button">Edit</button>
                                     <button class="delete-button">Delete</button>
+                                    </div>
                                      `)
                                     }
                                 } else if (category === 'positions') {
                                     for (index in response) {
                                         $(".category-values").append(
-                                        `<div>
+                                        `<div id="${category}">
                                         <p class="${response[index].position}">${response[index].position}</p>
+                                        <p class="id" id="${response[index].id}" hidden>${response[index].id}</p>
                                         <button class="edit-button">Edit</button>
                                         <button class="delete-button">Delete</button>
                                         </div>
@@ -105,12 +111,16 @@ function handleSelectCategory() {
 function deleteItem() {
     $('.category-values').on('click', '.delete-button', (e) => {
         e.preventDefault()
+        const category = $(e.currentTarget).parent('div').attr('id')
         const id = $(e.currentTarget).siblings('.id').attr('id')
         console.log(id)
         $.ajax({
                 method: 'DELETE',
-                url: `/api/sports/${id}`,
-                success: response => $('.message').html(`<p>Deleted successfully.</p>`),
+                url: `/api/${category}/${id}`,
+                success: response => {
+                    $('.message').html(`<p>Deleted successfully.</p>`)
+                    $(e.currentTarget).parent('div').remove()
+                },
                 error: error => {
                     $('.message').html(`<p>Please fill out all fields</p>`)
                 }        

@@ -37,6 +37,18 @@ router.post('/', jsonParser, (req, res) => {
 		})
 })
 
+router.delete('/:id', (req, res) => {
+	Location
+		.findByIdAndRemove(req.params.id)
+		.then(() => {
+			res.status(204).json({message: 'success'})
+		})
+		.catch(err => {
+			console.error(err)
+			res.status(500).json({error: 'something went wrong'})
+		})
+})
+
 
 module.exports = router
 
