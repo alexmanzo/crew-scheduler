@@ -36,7 +36,7 @@ $('#edit-availability').on('click', (e) => {
 	window.location = 'availability.html'
 })
 
-// Edit Event Categories
+// Edit or Delete Event Categories
 
 function handleEditEventCategoriesClick() {
     $('#edit-categories').on('click', (e) => {
@@ -58,8 +58,12 @@ function handleSelectCategory() {
                     if (category === 'sports') {
                         for (index in response) {
                             $(".category-values").append(
-                            `<p class="${response[index].sport}">${response[index].sport}</p>
-                            <p>edit</p><p>delete</p>
+                            `<div>
+                                <p class="${response[index].sport}">${response[index].sport}</p>
+                                <p class="id" id="${response[index].id}" hidden>${response[index].id}</p>
+                                <button class="edit-button">Edit</button>
+                                <button class="delete-button" id="banana">Delete</button>
+                            </div>
                              `)
                             }
                         } else if (category === 'opponents') {
@@ -67,20 +71,26 @@ function handleSelectCategory() {
                                 $(".category-values").append(
                                 `<p class="${response[index].opponent}">${response[index].opponent}</p>
                                 <p>edit</p><p>delete</p>
+                                <button class="edit-button">Edit</button>
+                                <button class="delete-button">Delete</button>
                                  `)
                                 }
                             } else if (category === 'locations') {
                                 for (index in response) {
                                     $(".category-values").append(
                                     `<p class="${response[index].location}">${response[index].location}</p>
-                                    <p>edit</p><p>delete</p>
+                                    <button class="edit-button">Edit</button>
+                                    <button class="delete-button">Delete</button>
                                      `)
                                     }
                                 } else if (category === 'positions') {
                                     for (index in response) {
                                         $(".category-values").append(
-                                        `<p class="${response[index].position}">${response[index].position}</p>
-                                        <p>edit</p><p>delete</p>
+                                        `<div>
+                                        <p class="${response[index].position}">${response[index].position}</p>
+                                        <button class="edit-button">Edit</button>
+                                        <button class="delete-button">Delete</button>
+                                        </div>
                                          `)
                                         }
 
@@ -92,9 +102,26 @@ function handleSelectCategory() {
         })
 }
 
+function deleteItem() {
+    $('.category-values').on('click', '.delete-button', (e) => {
+        e.preventDefault()
+        const id = $(e.currentTarget).siblings('.id').attr('id')
+        console.log(id)
+        $.ajax({
+                method: 'DELETE',
+                url: `/api/sports/${id}`,
+                success: response => $('.message').html(`<p>Deleted successfully.</p>`),
+                error: error => {
+                    $('.message').html(`<p>Please fill out all fields</p>`)
+                }        
+        })
+    }) 
+}
+
 
 
 handleEditEventCategoriesClick()
 handleSelectCategory()
+deleteItem()
 
 getAndDisplayEvents()
