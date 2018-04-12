@@ -46,13 +46,12 @@ router.put('/:id', jsonParser, (req, res) => {
   	}
 
   	let updatedSport = {
-  		id: req.params.id,
 		sport: req.body.sport
   	}
 
   	Sport
-  		.findByIdAndUpdate(req.params.id, {$set: updatedSport}, { new: true})
-  		.then(updatedPost => res.status(204).end())
+  		.findByIdAndUpdate(req.params.id, { $set: updatedSport }, { new: true })
+  		.then(update => res.status(204).end())
   		.catch(err => res.status(500).json({message: 'something went wrong'}))	
 })
 

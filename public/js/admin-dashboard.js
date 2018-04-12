@@ -62,7 +62,7 @@ function handleSelectCategory() {
                                 <p class="${response[index].sport}">${response[index].sport}</p>
                                 <p class="id" id="${response[index].id}" hidden>${response[index].id}</p>
                                 <button class="edit-button">Edit</button>
-                                <button class="delete-button" id="banana">Delete</button>
+                                <button class="delete-button">Delete</button>
                             </div>
                              `)
                             }
@@ -129,8 +129,45 @@ function deleteItem() {
 }
 
 
+function handleEditItemClick() {
+    $('.category-values').on('click', '.edit-button', (e) => {
+        e.preventDefault()
+        const category = $(e.currentTarget).parent('div').attr('id')
+        console.log(category)
+        const id = $(e.currentTarget).siblings('.id').attr('id')
+        $('.edit-item-form').prop('hidden', false)
+        $('.edit-item').on('click', '.edit-put-submit', (e) => {
+        e.preventDefault()
+        let newData = null
+        if (category === 'sports') {
+                newData = { "id": id, "sport": $('.edit-item-input').val() }
+            } else if (category === 'opponents') {
+                newData = { "id": id, "opponent": $('.edit-item-input').val() }
+            } else if (category === 'locations') {
+                newData = { "id": id, "location": $('.edit-item-input').val() }
+            } else if (category === 'positions') {
+                newData = { "id": id, "position": $('.edit-item-input').val() }
+            }
+            $.ajax({
+                method: 'PUT',
+                url: `/api/${category}/${id}`,
+                data: JSON.stringify(newData),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: response => {
+                     $('.message').html(`<p>Item edited successfully, page will reload.</p>`)
+                 }
+                })
+        setTimeout(() => {location.reload(true)}, 2000)    
+        })
+    })
+}
+
+
+
 
 handleEditEventCategoriesClick()
+handleEditItemClick()
 handleSelectCategory()
 deleteItem()
 
