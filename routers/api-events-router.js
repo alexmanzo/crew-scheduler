@@ -69,6 +69,23 @@ router.put('/:id', jsonParser, (req, res) => {
         .catch(err => res.status(500).json({ message: 'something went wrong' }))
 })
 
+router.put('/crew/:id', jsonParser, (req, res) => {
+    if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+        res.status(400).json({
+            error: 'Request path id and request body id values must match'
+        })
+    }
+
+    let updatedEvent = {
+        crew: req.body.crew
+    }
+
+    Event
+        .findByIdAndUpdate(req.params.id, { $addToSet: updatedEvent }, { new: true })
+        .then(update => res.status(204).end())
+        .catch(err => res.status(500).json({ message: 'something went wrong' }))
+})
+
 router.put('/remove-user/:username/:id', (req,res) => {
     Event
         .findByIdAndUpdate(req.params.id, { $pull: { "availability": `${req.params.username}` } } )

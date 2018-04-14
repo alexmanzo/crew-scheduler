@@ -12,7 +12,9 @@ const eventSchema = new mongoose.Schema({
 	positions: {type: Array, required: true},
 	availability: {type: Array},
 	crew: {type: Array}
+
 })
+
 
 eventSchema.methods.serialize = function() {
 	return {
