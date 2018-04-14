@@ -42,6 +42,7 @@ app.use('/api/users', userRouter)
 
 
 
+
 // CORS
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')

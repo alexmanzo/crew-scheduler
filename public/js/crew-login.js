@@ -11,6 +11,7 @@ $('.login-form').on('submit', event => {
 		dataType: 'json',
 		success: response => {
 			localStorage.setItem('token', response.authToken)
+			localStroage.setItem('user', username)
 			window.location = "crew-dashboard.html"
 		},
 		error: error => {

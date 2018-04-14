@@ -163,12 +163,15 @@ function handleEditItemClick() {
     })
 }
 
+function deleteAndEditCategories () {
+    handleEditEventCategoriesClick()
+    handleEditItemClick()
+    handleSelectCategory()
+    deleteItem()
+}
 
 
 
-handleEditEventCategoriesClick()
-handleEditItemClick()
-handleSelectCategory()
-deleteItem()
 
+deleteAndEditCategories()
 getAndDisplayEvents()

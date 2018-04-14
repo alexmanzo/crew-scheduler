@@ -129,9 +129,20 @@ router.post('/', jsonParser, (req, res) => {
 
 
 router.get('/', (req, res) => {
-	return User.find()
-		.then(users => res.json(users.map(user => user.serialize())))
-		.catch(err => res.status(500).json({message: 'Internal server error'}))
+  return User.find()
+    .then(users => res.json(users.map(user => user.serialize())))
+    .catch(err => res.status(500).json({message: 'Internal server error'}))
 })
+
+router.get('/:username', (req, res) => {
+  return User.find({"username": `${req.params.username}`})
+          .then(users => res.json(users.map(user => user.serialize())))
+          .catch(err => {
+              console.error(err)
+              res.status(500).json({error: 'Something went wrong'})
+          })
+})
+
+
 
 module.exports = router
