@@ -69,9 +69,10 @@ function showUserAsAvailable() {
     })
 }
  
-
-
-
-
 showUserAsAvailable()
 getAndDisplayEventsForForm()
+
+$('#dashboard').on('click', (e) => {
+    e.preventDefault()
+    window.location = 'admin-dashboard.html' || 'crew-dasboard.html'
+})
