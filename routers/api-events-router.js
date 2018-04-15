@@ -11,7 +11,7 @@ const Event = require('../models/events-model')
 const User = require('../models/user-model')
 
 
-router.get('/', (req, res) => {
+router.get('/', jsonParser, (req, res) => {
     Event
         .find()
         .then(events => {

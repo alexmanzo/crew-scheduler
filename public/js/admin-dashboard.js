@@ -9,9 +9,18 @@ function getEvents(callback) {
 
 function displayEvents(data) {
     for (index in data) {
-       $('.schedule').append(
-        `<div class="event">${data[index].date} ${data[index].time} ${data[index].call} ${data[index].sport} vs. ${data[index].opponent} ${data[index].location}</div>`
-        )
+        const crewArray = Object.values(data[index].crew).map(pos => Object.values(pos).toString())
+        const fullCrew = crewArray.toString()+','
+        const regex = /([^,]*),([^,]*),/gi
+        const subst = `$1: $2<br>`
+        const crew = fullCrew.replace(regex, subst)
+        if (crewArray === undefined || crewArray.length == 0) {
+            $('.schedule').append(
+                `<br><div class="event">${data[index].date} ${data[index].time} ${data[index].call} ${data[index].sport} vs. ${data[index].opponent} ${data[index].location}<br></div>`)
+        } else {
+           $('.schedule').append(
+            `<br><div class="event">${data[index].date} ${data[index].time} ${data[index].call} ${data[index].sport} vs. ${data[index].opponent} ${data[index].location}<p>Crew:</p>${crew}<br><br></div>`)
+          }
     }
 }
 
@@ -42,6 +51,7 @@ function handleEditEventCategoriesClick() {
     $('#edit-categories').on('click', (e) => {
         e.preventDefault()
         $('.category-fieldset').prop('hidden', false)
+        $('.schedule').prop('hidden', true)
     })
 }
 
