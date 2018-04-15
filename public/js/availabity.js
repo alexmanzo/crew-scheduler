@@ -35,7 +35,7 @@ function getAndDisplayEventsForForm() {
     getEventsForForm(displayEventsForForm);
 }
 
-
+       
 // Edit events to add user availability
 function showUserAsAvailable() {
     const user = localStorage.getItem('user')

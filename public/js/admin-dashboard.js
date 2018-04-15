@@ -118,6 +118,15 @@ function handleSelectCategory() {
         })
 }
 
+function watchSignOutClick(){
+  $('#sign-out').click((e) => {
+    e.preventDefault();
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.href = "/"
+  })
+}
+
 function deleteItem() {
     $('.category-values').on('click', '.delete-button', (e) => {
         e.preventDefault()
@@ -185,3 +194,4 @@ function deleteAndEditCategories () {
 
 deleteAndEditCategories()
 getAndDisplayEvents()
+watchSignOutClick()

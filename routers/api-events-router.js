@@ -64,7 +64,7 @@ router.put('/:id', jsonParser, (req, res) => {
     }
 
     Event
-        .findByIdAndUpdate(req.params.id, { $set: updatedEvent }, { new: true })
+        .findByIdAndUpdate(req.params.id, { $push: updatedEvent }, { new: true })
         .then(update => res.status(204).end())
         .catch(err => res.status(500).json({ message: 'something went wrong' }))
 })

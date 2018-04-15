@@ -1,4 +1,3 @@
-
 $('.register-form').on('submit', event => {
 	event.preventDefault()
 	let firstName = $('.first-name').val()
