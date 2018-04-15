@@ -86,6 +86,17 @@ router.put('/crew/:id', jsonParser, (req, res) => {
         .catch(err => res.status(500).json({ message: 'something went wrong' }))
 })
 
+router.put('/remove-crew/:username/:position/:id', (req, res) => {
+    Event 
+        .findByIdAndUpdate(req.params.id, { $pullAll: { "crew": [{"position":`${req.params.position}`, "crewMember": `${req.params.username}` }]}})
+        .then(update => res.status(204).end())
+        .catch(err => res.status(500).json({ message: 'something went wrong' }))
+})
+
+
+
+
+   
 router.put('/remove-user/:username/:id', (req,res) => {
     Event
         .findByIdAndUpdate(req.params.id, { $pull: { "availability": `${req.params.username}` } } )

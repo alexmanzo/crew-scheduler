@@ -55,7 +55,7 @@ function assignCrew() {
         const eventId = $(e.currentTarget).closest('form').attr('id')
         const crewMember = $(e.currentTarget).prev().val()
         const crewPosition = $(e.currentTarget).prev().prev('label').text()
-        crewArray.push({postion: crewPosition, crewMember: crewMember})
+        crewArray.push({position: crewPosition, crewMember: crewMember})
         let update = { id: eventId, crew: crewArray}
        $.ajax({
             method: 'PUT',
