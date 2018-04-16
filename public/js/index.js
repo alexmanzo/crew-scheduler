@@ -1,5 +1,15 @@
-$('.register-form').on('submit', event => {
-	event.preventDefault()
+$('.admin-login').on('click', e => {
+	e.preventDefault()
+	window.location = "admin-login.html"
+})
+
+$('.crew-login').on('click', e => {
+	e.preventDefault()
+	window.location = "crew-login.html"
+})
+
+$('.register-form').on('click', '.register-button', e => {
+	e.preventDefault()
 	let firstName = $('.first-name').val()
 	let lastName = $('.last-name').val()
 	let username = $('.username').val()

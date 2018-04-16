@@ -120,9 +120,11 @@ function handleSelectCategory() {
 
 function watchSignOutClick(){
   $('#sign-out').click((e) => {
-    e.preventDefault();
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    e.preventDefault()
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    localStorage.removeItem('username')
+    localStorage.removeItem('role')
     window.location.href = "/"
   })
 }

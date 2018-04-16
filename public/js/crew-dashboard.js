@@ -19,6 +19,17 @@ function getAndDisplayEvents() {
     getEvents(displayEvents);
 }
 
+function watchSignOutClick(){
+  $('#sign-out').click((e) => {
+    e.preventDefault()
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    localStorage.removeItem('username')
+    localStorage.removeItem('role')
+    window.location.href = "/"
+  })
+}
+
 
 $('#edit-availability').on('click', (e) => {
 	e.preventDefault()
@@ -26,3 +37,4 @@ $('#edit-availability').on('click', (e) => {
 })
 
 $(getAndDisplayEvents())
+watchSignOutClick()

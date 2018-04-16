@@ -42,6 +42,7 @@ function getAndDisplayEventsForForm() {
 
 function showUserAsAvailable() {
     const user = localStorage.getItem('user')
+    const username = localStorage.getItem('username')
     $('.availability-submit').on('click', (e) => {
         e.preventDefault()
         $('.event-availability:checked').each((i, obj) => {
@@ -64,7 +65,7 @@ function showUserAsAvailable() {
             if ($('.event-availability:not(:checked)')) {
                 $.ajax({
                     method: 'PUT',
-                    url: `/api/events/remove-user/${user}/${eventId}`,
+                    url: `/api/events/remove-user/${username}/${eventId}`,
                     success: response => $('.message').html('Success.')
                 }) 
             }   
@@ -77,5 +78,10 @@ getAndDisplayEventsForForm()
 
 $('#dashboard').on('click', (e) => {
     e.preventDefault()
-    window.location = 'admin-dashboard.html' || 'crew-dasboard.html'
+    const userRole = localStorage.getItem('role')
+    if (userRole === 'An Event Scheduler') {
+        window.location = 'admin-dashboard.html'
+    } else {
+      window.location = 'crew-dashboard.html'
+    }
 })
