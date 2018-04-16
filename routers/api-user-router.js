@@ -9,7 +9,7 @@ const router = express.Router()
 const jsonParser = bodyParser.json()
 
 router.post('/', jsonParser, (req, res) => {
-  const requiredFields = ['username', 'password', 'role']
+  const requiredFields = ['username', 'password', 'role', 'email']
   const missingField = requiredFields.find(field => !(field in req.body))
 
   if (missingField) {
@@ -21,7 +21,7 @@ router.post('/', jsonParser, (req, res) => {
     })
   }
 
-  const stringFields = ['username', 'password', 'firstName', 'lastName', 'role']
+  const stringFields = ['username', 'password', 'email', 'firstName', 'lastName', 'role']
   const nonStringField = stringFields.find(
     field => field in req.body && typeof req.body[field] !== 'string'
   )
@@ -82,7 +82,7 @@ router.post('/', jsonParser, (req, res) => {
     });
   }
 
-  let {username, password, firstName = '', lastName = '', role} = req.body;
+  let {username, password, email, firstName = '', lastName = '', role} = req.body;
   firstName = firstName.trim()
   lastName = lastName.trim()
 
@@ -105,6 +105,7 @@ router.post('/', jsonParser, (req, res) => {
       return User.create({
         username,
         password: hash,
+        email,
         firstName,
         lastName,
         role

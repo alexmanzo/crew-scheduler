@@ -10,9 +10,9 @@ function getEventsForForm(callback) {
 }
 
 function displayEventsForForm(data) {
-    const username = localStorage.getItem('user')
+    const user = localStorage.getItem('user')
     for (index in data) {
-        if (data[index].availability.includes(username)) {
+        if (data[index].availability.includes(user)) {
             $('.schedule').append(
             `<div class="event-container" id="${data[index].id}">
                 <input type="checkbox" id="${data[index].id}" class="id event-availability" checked>
@@ -37,6 +37,9 @@ function getAndDisplayEventsForForm() {
 
        
 // Edit events to add user availability
+
+
+
 function showUserAsAvailable() {
     const user = localStorage.getItem('user')
     $('.availability-submit').on('click', (e) => {

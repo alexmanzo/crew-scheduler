@@ -4,12 +4,13 @@ $('.register-form').on('submit', event => {
 	let lastName = $('.last-name').val()
 	let username = $('.username').val()
 	let password = $('.password').val()
+	let email = $('.email').val()
 	let role = $('.role').val()
 
 		$.ajax({
 			method: 'POST',
 			url:'/api/users/',
-			data: JSON.stringify({username, password, firstName, lastName, role}),
+			data: JSON.stringify({username, password, firstName, lastName, email, role}),
 			contentType: 'application/json',
 			dataType: 'json',
 			success: response =>  {
@@ -21,6 +22,7 @@ $('.register-form').on('submit', event => {
 
 			},
 			error: error => {
+				console.log(error)
 				$('.message').html('Please fill in all values.')
 			}
 
