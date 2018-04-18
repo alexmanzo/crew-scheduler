@@ -52,6 +52,7 @@ function handleEditEventCategoriesClick() {
         e.preventDefault()
         $('.category-fieldset').prop('hidden', false)
         $('.schedule').prop('hidden', true)
+        $('.schedule-button').prop('hidden', false)
     })
 }
 
