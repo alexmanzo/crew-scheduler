@@ -31,10 +31,7 @@ router.put('/:id', jsonParser, (req, res) => {
         call: moment(req.body.call, 'HHmm').format('hh:mm A'),
         sport: req.body.sport,
         opponent: req.body.opponent,
-        location: req.body.location,
-        positions: req.body.positions, 
-        availability: req.body.availability,
-        crew: req.body.crew      
+        location: req.body.location     
     }
     Event
         .findByIdAndUpdate(req.params.id, { $set: update }, { new: true })
