@@ -1,0 +1,12 @@
+* {
+	background-color: #283D3B;
+	color: #F8F2EF;
+	font-family: 'Lato', sans-serif;
+	-webkit-box-sizing: border-box; 
+	-moz-box-sizing: border-box;    
+	box-sizing: border-box;
+}
+
+h1 {
+	font-family: 'Shadows Into Light Two', cursive;
+}

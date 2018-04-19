@@ -29,7 +29,10 @@ function getEventsForForm() {
                 availableCrew.push(`<option>${crewAvailability[i]}</option>`)
             }
             for (let j = 0; j < crewPositions.length; j++) {
-            const sortedCrew = crews[index].crew.sort((a,b) => {return (a.position > b.position) ? 1 : ((b.position > a.position) ? -1 : 0)} )
+            let sortedCrew = null
+            if (crews.length > 0) {
+                sortedCrew = crews[index].crew.sort((a,b) => {return (a.position > b.position) ? 1 : ((b.position > a.position) ? -1 : 0)} )
+            }
                 if (crews[index] === undefined || crews[index].crew.length === 0) {    
                 positionsToStaff.push(`
                         <label for="${crewPositions[j]}" class=".label" id="${crewPositions[j]}">${crewPositions[j]}</label>
