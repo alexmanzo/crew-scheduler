@@ -58,7 +58,6 @@ function showUserAsAvailable() {
         e.preventDefault()
         $('.event-availability:checked').each((i, obj) => {
             let eventId = $('.event-availability:checked')[i].id
-            console.log(eventId)
             $.ajax({
                 method: 'GET',
                 url: `/api/availability/${eventId}`,
@@ -90,6 +89,8 @@ function showUserAsAvailable() {
         })
     })
 }
+
+
 
 getAndDisplayEventsForForm()
 showUserAsAvailable()

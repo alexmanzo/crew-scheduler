@@ -1,119 +1,135 @@
-
 //Populate form with events
-function getEventsForForm(callback) {
-    $.ajax({
-        method: 'GET',
-        url: '/api/events',
-        success: callback,
-        error: error => console.log('error: events cannot be displayed')
-    })
-}
 
-function displayEventsForForm(events) {
-    for (index in events) { 
-        $.ajax({
-            method: 'GET',
-            url: `/api/availability/${events[index].id}`,
-            success: availabilityData => {
-                let availability = availabilityData[0].availableCrew               
-                const positions = events[index].positions
-                let positionsToStaff = []
-                let availableCrew = []
-                for (j=0; j<availability.length; j++) {
-                        availableCrew.push(`<option>${availability[j]}</option>`)
-                }
-                for (i=0; i<positions.length; i++) {
-                    if (events[index].crew.length === 0) {
-                        positionsToStaff.push(`
-                        <label for="${positions[i]}" class=".label" id="${positions[i]}">${positions[i]}</label>
-                            <select class="available-crew" name="${positions[i]}" id="${positions[i]}">
+function getEventsForForm() {
+    const eventAjax = $.ajax({
+                        method: 'GET',
+                        url: '/api/events',
+                        })
+    const availabilityAjax = $.ajax({
+                                method: 'GET',
+                                url: '/api/availability/',
+                              })
+    const crewAjax = $.ajax({
+                        method: 'GET',
+                        url:'api/crew/'
+                     })
+
+
+    $.when(eventAjax, availabilityAjax, crewAjax).done((eventsResponse, availabilityResponse, crewResponse) => {
+        const events = eventsResponse[0]
+        const availability = availabilityResponse[0]
+        const crews = crewResponse[0]
+
+        for (index in events) {
+            const crewPositions = events[index].positions
+            const crewAvailability = availability[index].availableCrew    
+            let positionsToStaff = []
+            let availableCrew = []
+            for (let i = 0; i < crewAvailability.length; i++) {
+                availableCrew.push(`<option>${crewAvailability[i]}</option>`)
+            }
+            for (let j = 0; j < crewPositions.length; j++) {
+            const sortedCrew = crews[index].crew.sort((a,b) => {return (a.position > b.position) ? 1 : ((b.position > a.position) ? -1 : 0)} )
+                if (crews[index] === undefined || crews[index].crew.length === 0) {    
+                positionsToStaff.push(`
+                        <label for="${crewPositions[j]}" class=".label" id="${crewPositions[j]}">${crewPositions[j]}</label>
+                            <select class="available-crew" name="${crewPositions[j]}" id="${crewPositions[j]}">
                                 <option disabled selected>Choose Crew Member</option>
                                 ${availableCrew.join()}
-                            </select>  
-                            <button type="submit" class="crew-assign-submit">Save</button>          
+                            </select>
+                            <button type="submit" class="crew-assign-submit">Save</button>     
                         `)
-                    } else if (events[index].crew[i].position === positions[i]) {
-                        const crewIndex = availableCrew.indexOf(`<option>${events[index].crew[i].crewMember}</option>`)
+                } else if ( sortedCrew[j].position === crewPositions[j] ) {
+                    const crewIndex = availableCrew.indexOf(`<option>${sortedCrew[j].crewMember}</option>`)
+                    if (availableCrew.includes(`<option>${sortedCrew[j].crewMember}</option>`)) {
                         availableCrew.splice(crewIndex, 1)
-                        positionsToStaff.push(`
-                        <label for="${events[index].crew[i].position}" class=".label" id="${events[index].crew[i].position}">${events[index].crew[i].position}</label>
-                            <select class="available-crew" name="${events[index].crew[i].position}" id="${events[index].crew[i].position}">
-                                <option selected>${events[index].crew[i].crewMember}</option>
-                                ${availableCrew.join().sort()}
-                            </select>  
-                            <button type="submit" class="crew-assign-submit">Save</button>         
-                        `)
-                      }
-
-                }    
-
-                $('.schedule').append(
-                        `<form class="event-form" id="${events[index].id}">
-                            <p>${events[index].date} ${events[index].time} ${events[index].call} ${events[index].sport} vs. ${events[index].opponent} ${events[index].location}</p>
-                            <p>Positions</p>
-                            ${positionsToStaff.join("<br />")}
-                        </form>`
-                        )  
-
-            }          
-          
-        }) 
-
-    $.ajax({
-        method: 'POST',
-        url: '/api/crew',
-        data: JSON.stringify({
-            'eventId': `${events[index].id}`, 
-        }),
-        contentType: 'application/json',
-        dataType: 'json',
-        success: response => $('.message').html(response),
-        error: error => $('.message').html(error)
-    })        
-    }       
-}
+                    }
+                    positionsToStaff.push(`
+                            <label for="${crewPositions[j]}" class=".label" id="${crewPositions[j]}">${crewPositions[j]}</label>
+                                <select class="available-crew" name="${crewPositions[j]}" id="${crewPositions[j]}">
+                                    <option selected>${sortedCrew[j].crewMember}</option>
+                                    ${availableCrew.join()}
+                                </select>  
+                                <button type="submit" class="crew-assign-submit">Save</button>         
+                            `)
+                    availableCrew.splice(0, 0, `<option>${sortedCrew[j].crewMember}</option>`)            
+                } 
+            }
 
 
-function getAndDisplayEventsForForm() {
-    getEventsForForm(displayEventsForForm);
+            $('.schedule').append(
+                `<form class="event-form" id="${events[index].id}">
+                    <p>${events[index].date} ${events[index].time} ${events[index].call} ${events[index].sport} vs. ${events[index].opponent} ${events[index].location}</p>
+                    <p>Positions</p>
+                    ${positionsToStaff.join("<br>")}
+                </form>`
+            )
+
+
+            $.ajax({
+                method: 'POST',
+                url: '/api/crew',
+                data: JSON.stringify({
+                    'eventId': `${events[index].id}`,
+                }),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: response => $('.message').html(response),
+                error: error => $('.message').html(error)
+            })
+        }
+    })
+
 }
 
 
 // Edit events to add crew.
 function assignCrew() {
     $('.schedule').on('click', '.crew-assign-submit', (e) => {
-        e.preventDefault()
-        let crewId = null
-        const eventId = $(e.currentTarget).closest('form').attr('id')
-        const crewMember = $(e.currentTarget).prev().val()
-        const crewPosition = $(e.currentTarget).prev().prev('label').text()
-        $.ajax({
-            method: 'GET',
-            url: `/api/crew/${eventId}`,
-            success: response => {
-                crewId = response[0].id
-                let crew = { id: crewId, eventId: eventId, crew: { position: crewPosition, crewMember: crewMember }}
-                $.ajax({
+            e.preventDefault()
+            let crewId = null
+            const eventId = $(e.currentTarget).closest('form').attr('id')
+            const crewMember = $(e.currentTarget).prev().val()
+            const crewPosition = $(e.currentTarget).prev().prev('label').text()
+            const crewAjax = $.ajax({
+                method: 'GET',
+                url: `/api/crew/${eventId}`,
+            })
+            const removePositionAjax = crewAjax.then((response) => {
+                for (i = 0; i < response.length; i++) {
+                    crewId = response[i].id
+                }
+                return $.ajax({
+                    method: 'PUT',
+                    url: `/api/crew/${crewId}/${crewPosition}`,
+                })
+            })
+            const assignPositionAjax = removePositionAjax.then((response) => {
+                let crew = { id: crewId, eventId: eventId, crew: { position: crewPosition, crewMember: crewMember } }
+                return $.ajax({
                     method: 'PUT',
                     url: `/api/crew/${crewId}`,
                     data: JSON.stringify(crew),
                     contentType: 'application/json',
-                    dataType: 'json',
-                    success: response => { $('.message').html('Success.') }
+                    dataType: 'json'
                 })
-            }
-        })
-          
+            })
+
+
+            assignPositionAjax.done(response => {
+                $('.message').html(`<p>Success.</p>`)
+            })
     })
-}
+} 
 
 
- 
-getAndDisplayEventsForForm()
+
+
+getEventsForForm()
 assignCrew()
 
 
 $('#dashboard').on('click', (e) => {
     e.preventDefault()
-    window.location = 'admin-dashboard.html' 
+    window.location = 'admin-dashboard.html'
 })

@@ -10,9 +10,10 @@ const Crew = require('../models/crew-model')
 const User = require('../models/user-model')
 
 
+
 router.get('/', jsonParser, (req, res) => {
     Crew
-        .find().collation({ locale: 'en', strength: 2 }).sort({ position: 1 })
+        .find()
         .then(crews => {
             res.json(crews.map(crew => crew.serialize()))
         })
@@ -53,6 +54,14 @@ router.post('/', jsonParser, (req, res) => {
 })
 
 
+router.put('/:id/:position', jsonParser, (req, res) => {
+    Crew
+        .findByIdAndUpdate(req.params.id, { $pull: { "crew": {"position":`${req.params.position}`}}})
+        .then(update => res.status(204).end())
+        .catch(err => res.status(500).json({ message: 'something went wrong' }))
+})
+
+
 router.put('/:id', jsonParser, (req, res) => {
     if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
         res.status(400).json({
@@ -63,12 +72,12 @@ router.put('/:id', jsonParser, (req, res) => {
     let updatedCrew = {
         crew: req.body.crew
     }
-
     Crew
         .findByIdAndUpdate(req.params.id, { $push: updatedCrew }, { new: true })
         .then(update => res.status(204).end())
         .catch(err => res.status(500).json({ message: 'something went wrong' }))
 })
+
 
 router.delete('/:id', (req, res) => {
     Crew

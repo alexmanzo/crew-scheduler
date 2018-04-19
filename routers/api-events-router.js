@@ -23,15 +23,23 @@ router.get('/', jsonParser, (req, res) => {
         })
 })
 
-router.get('/:username', (req, res) => {
-    return Event
-            .find({"availability": `${req.params.username}`})
-            .then(events => res.json(events.map(event => event.serialize())))
-            .catch(err => {
-              console.error(err)
-              res.status(500).json({error: 'Something went wrong'})
-            })
+router.put('/:id', jsonParser, (req, res) => {
 
+    let update = {
+        date: moment(req.body.date, 'YYYY-MM-DD').format('dddd MM-DD-YYYY'),
+        time: moment(req.body.time, 'HHmm').format('hh:mm A'),
+        call: moment(req.body.call, 'HHmm').format('hh:mm A'),
+        sport: req.body.sport,
+        opponent: req.body.opponent,
+        location: req.body.location,
+        positions: req.body.positions, 
+        availability: req.body.availability,
+        crew: req.body.crew      
+    }
+    Event
+        .findByIdAndUpdate(req.params.id, { $set: update }, { new: true })
+        .then(update => res.status(204).end())
+        .catch(err => res.status(500).json({ message: 'something went wrong' }))
 })
 
 router.post('/', jsonParser, (req, res) => {
