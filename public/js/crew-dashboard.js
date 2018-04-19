@@ -1,18 +1,36 @@
-function getEvents(callback) {
-    $.ajax({
-    	method: 'GET',
-    	url: '/api/events',
-    	success: callback,
-        error: error => console.log('error: events cannot be displayed')
+function getEvents() {
+    const eventAjax = $.ajax({
+        method: 'GET',
+        url: '/api/events',
     })
-}
+    const crewAjax = $.ajax({
+        method: 'GET',
+        url: 'api/crew/'
+    })
 
-function displayEvents(data) {
-    for (index in data) {
-       $('.schedule').append(
-        `<div class="event">${data[index].date} ${data[index].time} ${data[index].call} ${data[index].sport} vs. ${data[index].opponent} ${data[index].location}</div>`
-        )
-    }
+
+    $.when(eventAjax, crewAjax).done((eventsResponse, crewResponse) => {
+            const events = eventsResponse[0]
+            const crews = crewResponse[0]
+            for (index in events) {
+                const sortedCrew = crews[index].crew.sort((a,b) => {return (a.position > b.position) ? 1 : ((b.position > a.position) ? -1 : 0)} )
+                const crewArray = Object.values(sortedCrew).map(pos => Object.values(pos).toString())
+                const fullCrew = crewArray.toString() + ','
+                const regex = /([^,]*),([^,]*),/gi
+                const subst = `$1: $2<br>`
+                const crew = fullCrew.replace(regex, subst)
+                if (crewArray === undefined || crewArray.length == 0) {
+                    $('.schedule').append(
+                        `<br><div class="event">${events[index].date} ${events[index].time} ${events[index].call} ${events[index].sport} vs. ${events[index].opponent} ${events[index].location}<br></div>`)
+                } else {
+                    $('.schedule').append(
+                        `<br><div class="event">${events[index].date} ${events[index].time} ${events[index].call} ${events[index].sport} vs. ${events[index].opponent} ${events[index].location}<p>Crew:</p>${crew}<br><br></div>`)
+                }
+            }
+
+        })
+
+
 }
 
 function getAndDisplayEvents() {
@@ -36,5 +54,5 @@ $('#edit-availability').on('click', (e) => {
 	window.location = 'availability.html'
 })
 
-$(getAndDisplayEvents())
+getEvents()
 watchSignOutClick()
