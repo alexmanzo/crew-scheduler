@@ -53,7 +53,7 @@ h3 {
 	width: 500px;
 	background: #4F5D75;
     border: 5px solid #44BBA4;
-    margin: 0 auto 5px auto;
+    margin: 0 auto 25px auto;
 }
 
 
@@ -104,7 +104,10 @@ h3 {
 }
 
 .event, .event-form {
-	padding: 10px 0px 20px 0px;
+	padding: 10px 0px 20px 40px;
+}
+
+.event-details {
 	text-align: center;
 }
 
