@@ -438,9 +438,7 @@ function handleEditItemClick() {
         $('.edit-item-form').on('click', '.edit-put-submit', (e) => {
             e.preventDefault()
             let newData = null
-            if ($('.edit-item-input').val() == ""){
-                $('.message').html(`<p>Cannot be blank.</p>`)
-            } else if (category === 'sports') {
+            if (category === 'sports') {
                 newData = { "id": id, "sport": $('.edit-item-input').val() }
             } else if (category === 'opponents') {
                 newData = { "id": id, "opponent": $('.edit-item-input').val() }
