@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+    <title>Crew Scheduler</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Bangers" rel="stylesheet">
+
+    <!---<link rel="icon" href="">-->
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-	<h1>create events</h1>
-	<button id="dashboard">Return to Dashboard</button>
+	<header role="banner" class="events-header">
+		<h1 class="events-header">create events</h1>
+		<button id="dashboard">Return to Dashboard</button>
+	</header>	
 	<form class="js-new-event-form">
 		<fieldset>
 			<label for="date">Date</label>
@@ -24,7 +31,7 @@
 			<select name="sport" id="sport">
 				<option disabled selected >Choose Option</option>
 			</select>
-			<input type="text" name="new-sport" id="new-sport" class="js-new-sport"/>
+			<input type="text" name="new-sport" id="new-sport" class="js-new-sport add-value"/>
 			<button name="new-sport-button" class="js-new-sport-button">Add New</button>
 			<div class="sport-message"></div>
 		</fieldset>
@@ -33,7 +40,7 @@
 			<select name="opponent" id="opponent">
 				<option disabled selected>Choose Option</option>
 			</select>
-			<input type="text" name="new-opponent" id="new-opponent" class="js-new-opponent"/>
+			<input type="text" name="new-opponent" id="new-opponent" class="js-new-opponent add-value"/>
 			<button name="new-opponent-button" class="js-new-opponent-button">Add New</button>
 			<div class="opponent-message"></div>
 		</fieldset>
@@ -42,13 +49,13 @@
 			<select name="location" id="location">
 				<option disabled selected>Choose Option</option>
 			</select>
-			<input type="text" name="new-location" id="new-location" class="js-new-location"/>
+			<input type="text" name="new-location" id="new-location" class="js-new-location add-value"/>
 			<button name="new-location-button" class="js-new-location-button">Add New</button>
 			<div class="location-message"></div>
 		</fieldset>
-		<fieldset id="positions">
+		<fieldset id="positions" class="positions">
 			<legend>Positions</legend>
-			<input type="text" name="new-position" id="new-position" class="js-new-position"/>
+			<input type="text" name="new-position" id="new-position" class="js-new-position add-value"/>
 			<button name="new-position-button" class="js-new-position-button">Add New</button>
 			<div class="position-message"></div>	
 		</fieldset>

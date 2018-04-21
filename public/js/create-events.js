@@ -45,9 +45,9 @@ function getPositionsForForm(callback) {
 function populateFormWithPositions(data) {
     for (index in data) {
         $("#positions").append(
-            `<div>
-				<input type ="checkbox" id="${data[index].position}" name="position" value="${data[index].position}">
-				<label for="${data[index].position}">${data[index].position}</label>
+            `<div class="positions-form checkbox">
+                <input type="checkbox" id="${data[index].position}" value="${data[index].position}">
+                <label for="${data[index].position}" class="checkbox-label">${data[index].position}</label>
 			</div>`
         )
     }

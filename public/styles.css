@@ -1,12 +1,445 @@
 * {
-	background-color: #283D3B;
-	color: #F8F2EF;
-	font-family: 'Lato', sans-serif;
+	background-color: #393E41;
+	color: #E7E5DF;
+	font-family: 'Open Sans', sans-serif;
 	-webkit-box-sizing: border-box; 
 	-moz-box-sizing: border-box;    
 	box-sizing: border-box;
 }
 
 h1 {
-	font-family: 'Shadows Into Light Two', cursive;
+	font-family: 'Bangers', sans-serif;
+	color: #44BBA4;
+	letter-spacing: 3px;
+	font-size: 70px;
+	padding-left: 25px;
+	padding-bottom: 25px;
+}
+
+h3 {
+	font-family: 'Bangers', sans-serif;
+	color: #E7E5DF;
+	letter-spacing: 4px;
+	font-size: 50px;
+	text-align: center;
+	margin-top: -30px;
+	margin-bottom: -10px;
+}
+
+
+.site-title {
+	font-family: 'Bangers', sans-serif;
+	font-size: 70px;
+	text-align: center;
+	text-decoration: none;
+}
+
+
+.site-description {
+	margin: 0 auto;
+	width: 750px;
+	text-align: center;
+	padding-bottom: 50px;
+}
+
+.register-form, .login-form, .category-values, .event, .js-new-event-form, .event-form, .availability-form {
+	width: 450px;
+    background: #4F5D75;
+    border: 5px solid #44BBA4;
+    margin: 0 auto;
+}
+
+
+
+.event-details, legend, .positions-form {
+	background-color: transparent;
+}
+
+.event-container {
+	background-color: #4F5D75;
+	padding: 25px 10px 10px 25px;
+	text-align: center;
+}
+
+.category-form {
+	width: 450px;
+	margin: 0 auto;
+	padding: 25px 10px 10px 10px;
+}
+
+.js-new-event-form {
+	width: 450px;
+	margin: 0 auto;
+	padding: 25px 10px 10px 10px;
+}
+
+.category-edit {
+	background-color: transparent;
+	padding: 0px 20px 0px 40px;
+	display: inline-block;
+	font-size: 18px;
+}
+
+.edit-item-form {
+	background-color: transparent;
+	padding: 0px 20px 0px 40px;
+	font-size: 18px;
+}
+
+
+.register-form {
+	padding: 10px 20px 10px 80px;
+}
+
+.login-form {
+    background: #4F5D75;
+    padding: 50px 20px 40px 80px;
+}
+
+.event, .event-form {
+	padding: 10px 0px 20px 0px;
+	text-align: center;
+}
+
+.register-form input[type=submit],
+.register-form input[type=button],
+.register-form input[type=text],
+.register-form input[type=email],
+.register-form input[type=password],
+.login-form input[type=email],
+.login-form input[type=password],
+.login-form input[type=text],
+.register-form textarea,
+.login-form textarea,
+.js-new-event-form input[type=text],
+.js-new-event-form input[type=date],
+.js-new-event-form input[type=time],
+.js-new-event-form input[type=checkbox],
+.js-new-event-form textarea,
+{
+    font-size: 22px;
+    color: #E7E5DF;
+    background-color: transparent;
+}
+
+.edit-item-form input[type=text] {
+	font-size: 18px;
+}
+
+.message {
+	font-size: 18px;
+	width: 275px;
+    background-color: transparent;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.register-form label, .login-form label, .edit-item-form label, .js-new-event-form label {
+    display: inline-block;
+    float: left;
+    width: 250px;
+    margin-bottom: 20px;
+    background-color: transparent;
+    font-size: 14px;
+}
+
+.availability-form label {
+    display: inline-block;
+    float: left;
+    width: 400px;
+    margin-bottom: 20px;
+    background-color: transparent;
+    font-size: 14px;
+}
+
+.register-form input[type=text],
+.register-form input[type=email],
+.register-form input[type=password],
+.login-form input[type=text],
+.login-form input[type=password],
+.edit-item-form input[type=text],
+.js-new-event-form input[type=text],
+.js-new-event-form input[type=date],
+.js-new-event-form input[type=time],
+.js-new-event-form textarea
+{
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed #83A4C5;
+    width: 275px;
+    outline: none;
+    padding: 0px 5px 0px 0px;
+    font-style: italic;
+}
+
+.register-form textarea {
+    padding: 0px 0px 0px 0px;
+    background: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 1px dashed #E7BB41;
+    width: 275px;
+    overflow: hidden;
+    resize:none;
+    height:20px;
+}
+
+.register-form textarea:focus, 
+.register-form input[type=text]:focus,
+.register-form input[type=email]:focus,
+.register-form input[type=password]:focus,
+.login-form input[type=text]:focus,
+.login-form input[type=password]:focus,
+.edit-item-form input[type=text]:focus,
+.js-new-event-form input[type=text]:focus,
+.js-new-event-form input[type=date]:focus,
+.js-new-event-form input[type=time]:focus,
+.js-new-event-form textarea:focus
+{
+    border-bottom: 1px dashed #E7BB41;
+}
+
+
+/*Select Styling */
+select {
+
+  /* styling */
+  background-color: transparent;
+  border: thin solid #44BBA4;
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 16px;
+  line-height: 1.5em;
+  padding: 0.5em 3.5em 0.5em 1em;
+
+  /* reset */
+
+  margin: 0;      
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+select {
+  background-image:
+    linear-gradient(45deg, transparent 50%, #44BBA4 50%),
+    linear-gradient(135deg, #44BBA4 50%, transparent 50%),
+    linear-gradient(to right, #44BBA4, #ccc);
+  background-position:
+    calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    calc(100% - 2.5em) 0.5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+  background-repeat: no-repeat;
+  width: 270px;
+}
+
+select:focus {
+  background-image:
+    linear-gradient(45deg, #E7BB41 50%, transparent 50%),
+    linear-gradient(135deg, transparent 50%, #E7BB41 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position:
+    calc(100% - 15px) 1em,
+    calc(100% - 20px) 1em,
+    calc(100% - 2.5em) 0.5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    1px 1.5em;
+  background-repeat: no-repeat;
+  border-color: #E7BB41;
+  outline: 0;
+}
+
+
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+button {
+	background-color: #44BBA4;
+	font-family: 'Bangers', sans-serif;
+	letter-spacing: 1px;
+	font-size: 20px;
+	color: #393E41;
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	margin-left: 5px;
+}
+ /* Checkbox Styling */
+
+.checkbox input[type="checkbox"] {
+    opacity: 0;
+}
+
+.checkbox label {
+    position: relative;
+    display: inline-block;
+    
+    /*16px width of fake checkbox + 6px distance between fake checkbox and text*/
+    padding-left: 22px;
+}
+
+.checkbox label::before,
+.checkbox label::after {
+    position: absolute;
+    content: "";
+    
+    /*Needed for the line-height to take effect*/
+    display: inline-block;
+}
+
+/*Outer box of the fake checkbox*/
+.checkbox label::before{
+    height: 16px;
+    width: 16px;
+    border-radius: 5px;
+    border: 1px solid;
+    left: 0px;
+    
+    /*(24px line-height - 16px height of fake checkbox) / 2 - 1px for the border
+     *to vertically center it.
+     */
+    top: 1px;
+}
+
+/*Checkmark of the fake checkbox*/
+.checkbox label::after {
+    width: 9px;
+  	height: 4px;
+  	border-left: 2px solid #E7E5DF;
+  	border-bottom: 2px solid #E7E5DF;
+ 	transform: rotate(-45deg);
+    left:4px;
+    top: 5px;
+}
+
+
+/*Hide the checkmark by default*/
+.checkbox input[type="checkbox"] + label::after {
+    content: none;
+}
+
+/*Unhide on the checked state*/
+.checkbox input[type="checkbox"]:checked + label::after {
+    content: "";
+}
+
+/*Adding focus styles on the outer-box of the fake checkbox*/
+.checkbox input[type="checkbox"]:focus + label::before {
+    outline: #E7BB41 solid 1px;
+    border-radius: 5px;
+}
+
+.event-checkbox input[type="checkbox"] {
+    opacity: 0;
+}
+
+.event-checkbox label {
+    position: relative;
+    display: inline-block;
+}
+
+.event-checkbox label::before,
+.event-checkbox label::after {
+    position: absolute;
+    content: "";
+    
+    /*Needed for the line-height to take effect*/
+    display: inline-block;
+}
+
+/*Outer box of the fake checkbox*/
+.event-checkbox label::before{
+    height: 16px;
+    width: 16px;
+    border-radius: 5px;
+    border: 1px solid;
+    left: 0px;
+    
+    /*(24px line-height - 16px height of fake checkbox) / 2 - 1px for the border
+     *to vertically center it.
+     */
+    top: 80px;
+}
+
+/*Checkmark of the fake checkbox*/
+.event-checkbox label::after {
+    width: 9px;
+  	height: 4px;
+  	border-left: 2px solid #E7E5DF;
+  	border-bottom: 2px solid #E7E5DF;
+ 	transform: rotate(-45deg);
+    left:4px;
+    top: 84px;
+}
+
+
+/*Hide the checkmark by default*/
+.event-checkbox input[type="checkbox"] + label::after {
+    content: none;
+}
+
+/*Unhide on the checked state*/
+.event-checkbox input[type="checkbox"]:checked + label::after {
+    content: "";
+}
+
+/*Adding focus styles on the outer-box of the fake checkbox*/
+.event-checkbox input[type="checkbox"]:focus + label::before {
+    outline: #E7BB41 solid 1px;
+    border-radius: 5px;
+}
+
+
+.register-button, .admin-login, .crew-login, .login-button, .availability-submit {
+	width: 275px;
+	font-family: 'Bangers', sans-serif;
+	letter-spacing: 1px;
+}
+
+.availability-submit {
+	margin-left: 75px;
+}
+
+.edit-put-submit {
+	margin-top: 15px;
+}
+
+
+
+button:hover {
+	background-color: #E7BB41;
+	color: #393E41;
+	border-radius: 5px;
+}
+
+button:active {
+	background-color: #E7E5DF;
+	color: #393E41;	
+}
+
+.dashboard-header, .events-header, .crews-header, .availability-header{
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.add-value {
+	margin-top: 15px;
+	margin-bottom: 20px;
+}
+
+
+fieldset {
+	border: none;
+	background-color: transparent;
 }

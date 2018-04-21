@@ -2,16 +2,26 @@
 <html>
 
 <head>
-    <title></title>
+    <title>Crew Scheduler</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Bangers" rel="stylesheet">
+    <!---<link rel="icon" href="">-->
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body>
+    <header role="banner">
+        <a href="index.html" class="site-title"><h1 class="site-title">Crew Scheduler</h1></a>
+        <p class="site-description">Staffing live events at your institution can be tough. Crew scheduler allows to create events, gather your crew's availability, and assign crew to each event. Register below to get started!</p>
+    </header>
     <form class="login-form">
-    	<label for="username">Username</label>
         <input type="text" name="username" class="username" />
-        <label for="password">Password</label>
+        <label for="username">Username</label>
         <input type="password" name="password" class="password" />
-        <button name="button">Login</button>
+        <label for="password">Password</label>
+        <br>
+        <button name="button" class="login-button">Login</button>
+        <div class="message"></div>
     </form>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/crew-login.js"></script>

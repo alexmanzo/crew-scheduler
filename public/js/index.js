@@ -42,5 +42,3 @@ $('.register-form').on('click', '.register-button', e => {
 
 
 
-
-

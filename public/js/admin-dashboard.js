@@ -16,22 +16,41 @@ function getEvents() {
             let sortedCrew = null
             let crewArray = null
             let crew = null
-            if (crews.length > 0) {
-                sortedCrew = crews[index].crew.sort((a, b) => { return (a.position > b.position) ? 1 : ((b.position > a.position) ? -1 : 0) }) 
+            if (typeof crews[index] != "undefined") {
+                sortedCrew = crews[index].crew.sort((a, b) => { return (a.position > b.position) ? 1 : ((b.position > a.position) ? -1 : 0) })
                 crewArray = Object.values(sortedCrew).map(pos => Object.values(pos).toString())
                 const fullCrew = crewArray.toString() + ','
                 const regex = /([^,]*),([^,]*),/gi
                 const subst = `$1: $2<br>`
                 crew = fullCrew.replace(regex, subst)
             }
-            
+
             const eventPositions = events[index].positions
             if (crewArray === null || crewArray.length == 0) {
                 $('.schedule').append(
-                    `<br><div class="event" id="${events[index].id}"><span class="date">${events[index].date}</span> <span class="time">${events[index].time}</span> <span class="call">${events[index].call}</span> <span class="sport">${events[index].sport}</span> vs. <span class="opponent">${events[index].opponent}</span> <span class="location">${events[index].location}</span><button class="edit-event-button">Edit Event</button><button class="delete-event-button">Delete Event</button><br></div>`)
+                    `<br>
+                    <div class="event" id="${events[index].id}">
+                    <p class="event-details">Date: <span class="date event-details">${events[index].date}</span></p>
+                    <p class="event-details">Game Time: <span class="time event-details">${events[index].time}</span></p>
+                    <p class="event-details">Call Time: <span class="call event-details">${events[index].call}</span></p>                    
+                    <p class="event-details">Event: <span class="sport event-details">${events[index].sport}</span> vs. <span class="opponent event-details">${events[index].opponent}</span></p>
+                    <p class="event-details">Location: <span class="location event-details">${events[index].location}</span></p>
+                    <button class="edit-event-button">Edit Event</button>
+                    <button class="delete-event-button">Delete Event</button></div>`)
             } else {
                 $('.schedule').append(
-                    `<br><div class="event" id="${events[index].id}"><span class="date">${events[index].date}</span> <span class="time">${events[index].time}</span> <span class="call">${events[index].call}</span> <span class="sport">${events[index].sport}</span> vs. <span class="opponent">${events[index].opponent}</span> <span class="location">${events[index].location}</span><button class="edit-event-button">Edit Event</button><button class="delete-event-button">Delete Event</button><br><p>Crew:</p>${crew}<br><br></div>`)
+                    `<br>
+                    <div class="event" id="${events[index].id}">
+                    <p class="event-details">Date: <span class="date event-details">${events[index].date}</span></p>
+                    <p class="event-details">Game Time: <span class="time event-details">${events[index].time}</span></p>
+                    <p class="event-details">Call Time: <span class="call event-details">${events[index].call}</span></p>                    
+                    <p class="event-details">Event: <span class="sport event-details">${events[index].sport}</span> vs. <span class="opponent event-details">${events[index].opponent}</span></p>
+                    <p class="event-details">Location: <span class="location event-details">${events[index].location}</span></p>
+                    <p class="event-details">Crew:</p>${crew}
+                    <br>
+                    <button class="edit-event-button">Edit Event</button>
+                    <button class="delete-event-button">Delete Event</button>
+                    </div>`)
             }
         }
 
@@ -56,6 +75,7 @@ $('#edit-availability').on('click', (e) => {
     e.preventDefault()
     window.location = 'availability.html'
 })
+
 //Edit or Delete Events
 function deleteEvent() {
     $('.schedule').on('click', '.delete-event-button', (e) => {
@@ -269,7 +289,7 @@ function handleEditEventSubmit() {
             }),
             contentType: 'application/json',
             dataType: 'json',
-            success: response => { 
+            success: response => {
                 $('.message').html(`<p>Success</p>`)
                 $('.event-edit').prop('hidden', true)
             }
@@ -305,44 +325,64 @@ function handleSelectCategory() {
                 if (category === 'sports') {
                     for (index in response) {
                         $(".category-values").append(
-                            `<div id="${category}">
-                            <p class="${response[index].sport}">${response[index].sport}</p>
+                            `<div id="${category}" class="category-edit">
+                            <p class="${response[index].sport} category-edit">${response[index].sport}</p>
                             <p class="id" id="${response[index].id}" hidden>${response[index].id}</p>
                             <button class="edit-button">Edit</button>
                             <button class="delete-button">Delete</button>
+                            <form class="edit-item-form ${response[index].id}" hidden>
+                                <label for="edit-item-input">Enter new value</label>
+                                <input type="text" name="edit-item-input" class="edit-item-input">
+                                <button type="submit" class="edit-put-submit">Submit</button>
+                            </form>
                         </div>
                          `)
                     }
                 } else if (category === 'opponents') {
                     for (index in response) {
                         $(".category-values").append(
-                            `<div id="${category}">
-                            <p class="${response[index].opponent}">${response[index].opponent}</p>
+                            `<div id="${category}" class="category-edit">
+                            <p class="${response[index].opponent} category-edit">${response[index].opponent}</p>
                             <p class="id" id="${response[index].id}" hidden>${response[index].id}</p>
                             <button class="edit-button">Edit</button>
                             <button class="delete-button">Delete</button>
+                            <form class="edit-item-form ${response[index].id}" hidden>
+                                <label for="edit-item-input">Enter new value</label>
+                                <input type="text" name="edit-item-input" class="edit-item-input">
+                                <button type="submit" class="edit-put-submit">Submit</button>
+                            </form>
                             </div>
                              `)
                     }
                 } else if (category === 'locations') {
                     for (index in response) {
                         $(".category-values").append(
-                            `<div id="${category}">
-                                <p class="${response[index].location}">${response[index].location}</p>
+                            `<div id="${category}" class="category-edit">
+                                <p class="${response[index].location} category-edit">${response[index].location}</p>
                                 <p class="id" id="${response[index].id}" hidden>${response[index].id}</p>
                                 <button class="edit-button">Edit</button>
                                 <button class="delete-button">Delete</button>
+                                <form class="edit-item-form ${response[index].id}" hidden>
+                                    <label for="edit-item-input">Enter new value</label>
+                                    <input type="text" name="edit-item-input" class="edit-item-input">
+                                <button type="submit" class="edit-put-submit">Submit</button>
+                            </form>
                                 </div>
                                  `)
                     }
                 } else if (category === 'positions') {
                     for (index in response) {
                         $(".category-values").append(
-                            `<div id="${category}">
-                                    <p class="${response[index].position}">${response[index].position}</p>
+                            `<div id="${category}" class="category-edit">
+                                    <p class="${response[index].position} category-edit">${response[index].position}</p>
                                     <p class="id" id="${response[index].id}" hidden>${response[index].id}</p>
                                     <button class="edit-button">Edit</button>
                                     <button class="delete-button">Delete</button>
+                                    <form class="edit-item-form ${response[index].id}" hidden>
+                                        <label for="edit-item-input">Enter new value</label>
+                                        <input type="text" name="edit-item-input" class="edit-item-input">
+                                        <button type="submit" class="edit-put-submit">Submit</button>
+                                    </form>
                                     </div>
                                      `)
                     }
@@ -352,6 +392,7 @@ function handleSelectCategory() {
             },
             error: error => console.log(error)
         })
+        $('.category-values').prop('hidden', false)
     })
 }
 
@@ -391,13 +432,15 @@ function handleEditItemClick() {
     $('.category-values').on('click', '.edit-button', (e) => {
         e.preventDefault()
         const category = $(e.currentTarget).parent('div').attr('id')
-        console.log(category)
         const id = $(e.currentTarget).siblings('.id').attr('id')
-        $('.edit-item-form').prop('hidden', false)
-        $('.edit-item').on('click', '.edit-put-submit', (e) => {
+        $(`.${id}`).prop('hidden', false)
+        $('.category-values').prop('hidden', false)
+        $('.edit-item-form').on('click', '.edit-put-submit', (e) => {
             e.preventDefault()
             let newData = null
-            if (category === 'sports') {
+            if ($('.edit-item-input').val() == ""){
+                $('.message').html(`<p>Cannot be blank.</p>`)
+            } else if (category === 'sports') {
                 newData = { "id": id, "sport": $('.edit-item-input').val() }
             } else if (category === 'opponents') {
                 newData = { "id": id, "opponent": $('.edit-item-input').val() }

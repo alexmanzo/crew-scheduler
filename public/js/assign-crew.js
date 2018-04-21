@@ -35,7 +35,7 @@ function getEventsForForm() {
             }
                 if (crews[index] === undefined || crews[index].crew.length === 0) {    
                 positionsToStaff.push(`
-                        <label for="${crewPositions[j]}" class=".label" id="${crewPositions[j]}">${crewPositions[j]}</label>
+                        <label for="${crewPositions[j]}" class="label event-details" id="${crewPositions[j]}">${crewPositions[j]}</label>
                             <select class="available-crew" name="${crewPositions[j]}" id="${crewPositions[j]}">
                                 <option disabled selected>Choose Crew Member</option>
                                 ${availableCrew.join()}
@@ -48,7 +48,7 @@ function getEventsForForm() {
                         availableCrew.splice(crewIndex, 1)
                     }
                     positionsToStaff.push(`
-                            <label for="${crewPositions[j]}" class=".label" id="${crewPositions[j]}">${crewPositions[j]}</label>
+                            <label for="${crewPositions[j]}" class="label event-details" id="${crewPositions[j]}">${crewPositions[j]}</label>
                                 <select class="available-crew" name="${crewPositions[j]}" id="${crewPositions[j]}">
                                     <option selected>${sortedCrew[j].crewMember}</option>
                                     ${availableCrew.join()}
@@ -62,8 +62,13 @@ function getEventsForForm() {
 
             $('.schedule').append(
                 `<form class="event-form" id="${events[index].id}">
-                    <p>${events[index].date} ${events[index].time} ${events[index].call} ${events[index].sport} vs. ${events[index].opponent} ${events[index].location}</p>
-                    <p>Positions</p>
+                    <p class="event-details">Date: <span class="date event-details">${events[index].date}</span></p>
+                    <p class="event-details">Game Time: <span class="time event-details">${events[index].time}</span></p>
+                    <p class="event-details">Call Time: <span class="call event-details">${events[index].call}</span></p>                    
+                    <p class="event-details">Event: <span class="sport event-details">${events[index].sport}</span> vs. <span class="opponent event-details">${events[index].opponent}</span></p>
+                    <p class="event-details">Location: <span class="location event-details">${events[index].location}</span></p>
+                    <br>
+                    <p class="event-details">Positions</p>
                     ${positionsToStaff.join("<br>")}
                 </form>`
             )

@@ -14,19 +14,26 @@ function displayEventsForForm(events) {
     for (index in events) {
         if (events[index].availability.includes(user)) {
             $('.schedule').append(
-            `<div class="event-container" id="${events[index].id}">
+            `<div class="event-container event-checkbox">
                 <input type="checkbox" id="${events[index].id}" class="id event-availability" checked>
-                <label for="${events[index].id}">${events[index].date} ${events[index].time} ${events[index].call} ${events[index].sport} vs. ${events[index].opponent} ${events[index].location}</label>
+                <label for="${events[index].id}">${events[index].date} ${events[index].time} ${events[index].call} <br> ${events[index].sport} vs. ${events[index].opponent} ${events[index].location}</label>
             </div>`
             )
         } else {
             $('.schedule').append(
-                `<div class="event-container" id="${events[index].id}">
+                `<div class="event-container event-checkbox">
                     <input type="checkbox" id="${events[index].id}" class="id event-availability">
-                    <label for="${events[index].id}">${events[index].date} ${events[index].time} ${events[index].call} ${events[index].sport} vs. ${events[index].opponent} ${events[index].location}</label>
+                    <label for="${events[index].id}"><p class="event-details">Date: <span class="date event-details">${events[index].date}</span></p>
+                        <p class="event-details">Game Time: <span class="time event-details">${events[index].time}</span></p>
+                        <p class="event-details">Call Time: <span class="call event-details">${events[index].call}</span></p>                    
+                        <p class="event-details">Event: <span class="sport event-details">${events[index].sport}</span> vs. <span class="opponent event-details">${events[index].opponent}</span></p>
+                        <p class="event-details">Location: <span class="location event-details">${events[index].location}</span></p>
+                        <br>
+                    </label>
                 </div>`
                 )
           }
+
     $.ajax({
         method: 'POST',
         url: '/api/availability',

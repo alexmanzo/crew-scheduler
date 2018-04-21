@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+    <title>Crew Scheduler</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Bangers" rel="stylesheet">
+
+    <!---<link rel="icon" href="">-->
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
+
 <body>
-	<h1>Availability</h1>
-	<button id="dashboard">Return to Dashboard</button>
-	<p>Check the box next to the event to indicate your availability.</p>
+	<header role="banner" class="availability-header">
+		<h1 class="availability-header">Availability</h1>
+    	<button id="dashboard">Return to Dashboard</button>
+    	<p>Check the box next to the event to indicate your availability.</p>
+	</header>
 	<div class="message"></div>
 	<form class="availability-form">
 		<div class="schedule"></div>
+		<br>
 		<button type="submit" class="availability-submit">Submit</button>	
 	</form>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
