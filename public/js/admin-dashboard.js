@@ -332,7 +332,7 @@ function handleSelectCategory() {
                             <button class="delete-button">Delete</button>
                             <form class="edit-item-form ${response[index].id}" hidden>
                                 <label for="edit-item-input">Enter new value</label>
-                                <input type="text" name="edit-item-input" class="edit-item-input">
+                                <input type="text" id="edit-item-input" name="edit-item-input" class="edit-item-input">
                                 <button type="submit" class="edit-put-submit">Submit</button>
                             </form>
                         </div>
@@ -348,7 +348,7 @@ function handleSelectCategory() {
                             <button class="delete-button">Delete</button>
                             <form class="edit-item-form ${response[index].id}" hidden>
                                 <label for="edit-item-input">Enter new value</label>
-                                <input type="text" name="edit-item-input" class="edit-item-input">
+                                <input type="text" id="edit-item-input" class="edit-item-input">
                                 <button type="submit" class="edit-put-submit">Submit</button>
                             </form>
                             </div>
@@ -364,7 +364,7 @@ function handleSelectCategory() {
                                 <button class="delete-button">Delete</button>
                                 <form class="edit-item-form ${response[index].id}" hidden>
                                     <label for="edit-item-input">Enter new value</label>
-                                    <input type="text" name="edit-item-input" class="edit-item-input">
+                                    <input type="text" id="edit-item-input" class="edit-item-input">
                                 <button type="submit" class="edit-put-submit">Submit</button>
                             </form>
                                 </div>
@@ -380,7 +380,7 @@ function handleSelectCategory() {
                                     <button class="delete-button">Delete</button>
                                     <form class="edit-item-form ${response[index].id}" hidden>
                                         <label for="edit-item-input">Enter new value</label>
-                                        <input type="text" name="edit-item-input" class="edit-item-input">
+                                        <input type="text" id="edit-item-input" class="edit-item-input">
                                         <button type="submit" class="edit-put-submit">Submit</button>
                                     </form>
                                     </div>
@@ -438,6 +438,7 @@ function handleEditItemClick() {
         $('.edit-item-form').on('click', '.edit-put-submit', (e) => {
             e.preventDefault()
             let newData = null
+            console.log($('.edit-item-input').val())
             if (category === 'sports') {
                 newData = { "id": id, "sport": $('.edit-item-input').val() }
             } else if (category === 'opponents') {
@@ -457,7 +458,7 @@ function handleEditItemClick() {
                     $('.message').html(`<p>Item edited successfully, page will reload.</p>`)
                 }
             })
-            setTimeout(() => { location.reload(true) }, 2000)
+            setTimeout(() => { location.reload(true) }, 3000)
         })
     })
 }
