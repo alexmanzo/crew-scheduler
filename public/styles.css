@@ -42,11 +42,18 @@ h3 {
 	padding-bottom: 50px;
 }
 
-.register-form, .login-form, .category-values, .event, .js-new-event-form, .event-form, .availability-form {
+.register-form, .login-form, .category-values, .event, .js-new-event-form, .availability-form {
 	width: 450px;
     background: #4F5D75;
     border: 5px solid #44BBA4;
     margin: 0 auto;
+}
+
+.event-form {
+	width: 500px;
+	background: #4F5D75;
+    border: 5px solid #44BBA4;
+    margin: 0 auto 5px auto;
 }
 
 
