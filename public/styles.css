@@ -103,12 +103,23 @@ h3 {
     padding: 50px 20px 40px 80px;
 }
 
-.event, .event-form {
-	padding: 10px 0px 20px 40px;
+.event {
+	padding: 10px 0px 20px 0px;
+	text-align: center;
+}
+
+
+.event-form {
+	padding: 10px 0px 20px 0px;
 }
 
 .event-details {
 	text-align: center;
+}
+
+.assign-event-details {
+	padding: 10px 0px 20px 45px;
+	background-color: transparent;
 }
 
 .register-form input[type=submit],

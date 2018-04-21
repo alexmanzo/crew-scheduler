@@ -35,7 +35,7 @@ function getEventsForForm() {
             }
                 if (crews[index] === undefined || crews[index].crew.length === 0) {    
                 positionsToStaff.push(`
-                        <label for="${crewPositions[j]}" class="label event-details" id="${crewPositions[j]}">${crewPositions[j]}</label>
+                        <label for="${crewPositions[j]}" class="label assign-event-details" id="${crewPositions[j]}">${crewPositions[j]}</label>
                             <select class="available-crew" name="${crewPositions[j]}" id="${crewPositions[j]}">
                                 <option disabled selected>Choose Crew Member</option>
                                 ${availableCrew.join()}
@@ -48,7 +48,7 @@ function getEventsForForm() {
                         availableCrew.splice(crewIndex, 1)
                     }
                     positionsToStaff.push(`
-                            <label for="${crewPositions[j]}" class="label event-details" id="${crewPositions[j]}">${crewPositions[j]}</label>
+                            <label for="${crewPositions[j]}" class="label assign-event-details" id="${crewPositions[j]}">${crewPositions[j]}</label>
                                 <select class="available-crew" name="${crewPositions[j]}" id="${crewPositions[j]}">
                                     <option selected>${sortedCrew[j].crewMember}</option>
                                     ${availableCrew.join()}
