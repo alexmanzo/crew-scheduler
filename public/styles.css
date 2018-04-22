@@ -110,16 +110,21 @@ h3 {
 
 
 .event-form {
-	padding: 10px 0px 20px 0px;
+	padding: 10px 0px 20% 0px;
 }
 
 .event-details {
 	text-align: center;
 }
 
+.assign-container {
+	display: inline-block;
+	float: right;
+	background-color: transparent;
+	padding: 0px 20% 0px 0px;
+}
+
 .assign-event-details {
-	padding: 10px 0px 20px 45px;
-	text-align: right;
 	background-color: transparent;
 }
 

@@ -22,25 +22,30 @@ function getEventsForForm() {
 
         for (index in events) {
             const crewPositions = events[index].positions
-            const crewAvailability = availability[index].availableCrew    
             let positionsToStaff = []
+            let crewAvailability;
             let availableCrew = []
-            for (let i = 0; i < crewAvailability.length; i++) {
-                availableCrew.push(`<option>${crewAvailability[i]}</option>`)
+            if (availability[index] != undefined) {
+                crewAvailability = availability[index].availableCrew
+                for (let i = 0; i < crewAvailability.length; i++) {
+                    availableCrew.push(`<option>${crewAvailability[i]}</option>`)
+                }
             }
             for (let j = 0; j < crewPositions.length; j++) {
             let sortedCrew = null
-            if (crews.length > 0) {
+            if (crews.length > 0 && crews[index] != undefined) {
                 sortedCrew = crews[index].crew.sort((a,b) => {return (a.position > b.position) ? 1 : ((b.position > a.position) ? -1 : 0)} )
             }
                 if (crews[index] === undefined || crews[index].crew.length === 0) {    
                 positionsToStaff.push(`
+                    <div class="assign-container">
                         <label for="${crewPositions[j]}" class="label assign-event-details" id="${crewPositions[j]}">${crewPositions[j]}</label>
                             <select class="available-crew" name="${crewPositions[j]}" id="${crewPositions[j]}">
                                 <option disabled selected>Choose Crew Member</option>
                                 ${availableCrew.join()}
                             </select>
-                            <button type="submit" class="crew-assign-submit">Save</button>     
+                            <button type="submit" class="crew-assign-submit">Save</button> 
+                            </div>     
                         `)
                 } else if ( sortedCrew[j].position === crewPositions[j] ) {
                     const crewIndex = availableCrew.indexOf(`<option>${sortedCrew[j].crewMember}</option>`)
@@ -48,12 +53,14 @@ function getEventsForForm() {
                         availableCrew.splice(crewIndex, 1)
                     }
                     positionsToStaff.push(`
+                            <div class="assign-container">
                             <label for="${crewPositions[j]}" class="label assign-event-details" id="${crewPositions[j]}">${crewPositions[j]}</label>
                                 <select class="available-crew" name="${crewPositions[j]}" id="${crewPositions[j]}">
                                     <option selected>${sortedCrew[j].crewMember}</option>
                                     ${availableCrew.join()}
                                 </select>  
-                                <button type="submit" class="crew-assign-submit">Save</button>         
+                                <button type="submit" class="crew-assign-submit">Save</button>
+                            </div>             
                             `)
                     availableCrew.splice(0, 0, `<option>${sortedCrew[j].crewMember}</option>`)            
                 } 
