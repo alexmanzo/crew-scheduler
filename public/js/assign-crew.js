@@ -41,7 +41,7 @@ function getEventsForForm() {
                     <div class="assign-container">
                         <label for="${crewPositions[j]}" class="label assign-event-details" id="${crewPositions[j]}">${crewPositions[j]}</label>
                             <select class="available-crew" name="${crewPositions[j]}" id="${crewPositions[j]}">
-                                <option disabled selected>Choose Crew Member</option>
+                                <option disabled selected>Choose Crew</option>
                                 ${availableCrew.join()}
                             </select>
                             <button type="submit" class="crew-assign-submit">Save</button> 

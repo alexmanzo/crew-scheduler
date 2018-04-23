@@ -12,8 +12,6 @@ h1 {
 	color: #44BBA4;
 	letter-spacing: 3px;
 	font-size: 70px;
-	padding-left: 25px;
-	padding-bottom: 25px;
 }
 
 h3 {
@@ -37,26 +35,47 @@ h3 {
 
 .site-description {
 	margin: 0 auto;
-	width: 750px;
+	width: 75%;
 	text-align: center;
 	padding-bottom: 50px;
 }
 
 .register-form, .login-form, .category-values, .event, .js-new-event-form, .availability-form {
-	width: 450px;
+	width: 95%%;
     background: #4F5D75;
     border: 5px solid #44BBA4;
     margin: 0 auto;
 }
 
+.edit-event-form {
+    background: #4F5D75;
+}
+
+.register-form {
+	padding: 1% 5% 2% 5%;
+}
+
+.register-form-select {
+	width: 90%;
+}
+
+.available-crew {
+	width: 50%;
+}
+
 .event-form {
-	width: 650px;
+	width: 100%;
 	background: #4F5D75;
     border: 5px solid #44BBA4;
     margin: 0 auto 25px auto;
+    padding-bottom: 5%;
 }
 
-
+.assign-container {
+	background-color: transparent;
+	text-align: right;
+	padding-right: 12%
+}
 
 .event-details, legend, .positions-form {
 	background-color: transparent;
@@ -69,13 +88,13 @@ h3 {
 }
 
 .category-form {
-	width: 450px;
+	width: 75%;
 	margin: 0 auto;
 	padding: 25px 10px 10px 10px;
 }
 
 .js-new-event-form {
-	width: 450px;
+	width: 75%;
 	margin: 0 auto;
 	padding: 25px 10px 10px 10px;
 }
@@ -94,13 +113,9 @@ h3 {
 }
 
 
-.register-form {
-	padding: 10px 20px 10px 80px;
-}
-
 .login-form {
     background: #4F5D75;
-    padding: 50px 20px 40px 80px;
+    padding: 3% 3% 3% 5%;
 }
 
 .event {
@@ -109,19 +124,8 @@ h3 {
 }
 
 
-.event-form {
-	padding: 10px 0px 20% 0px;
-}
-
 .event-details {
 	text-align: center;
-}
-
-.assign-container {
-	display: inline-block;
-	float: right;
-	background-color: transparent;
-	padding: 0px 20% 0px 0px;
 }
 
 .assign-event-details {
@@ -142,7 +146,13 @@ h3 {
 .js-new-event-form input[type=date],
 .js-new-event-form input[type=time],
 .js-new-event-form input[type=checkbox],
-.js-new-event-form textarea
+.js-new-event-form textarea,
+.edit-event-form input[type=text],
+.edit-event-form input[type=date],
+.edit-event-form input[type=time],
+.edit-event-form input[type=checkbox],
+.edit-event-form textarea
+
 {
     font-size: 22px;
     color: #E7E5DF;
@@ -155,16 +165,16 @@ h3 {
 
 .message {
 	font-size: 18px;
-	width: 275px;
+	width: 40%px;
     background-color: transparent;
     text-align: center;
     margin: 0 auto;
 }
 
-.register-form label, .login-form label, .edit-item-form label, .js-new-event-form label {
+.register-form label, .login-form label, .edit-item-form label, .js-new-event-form label, .edit-event-form label {
     display: inline-block;
     float: left;
-    width: 250px;
+    width: 100%;
     margin-bottom: 20px;
     background-color: transparent;
     font-size: 14px;
@@ -173,7 +183,7 @@ h3 {
 .availability-form label {
     display: inline-block;
     float: left;
-    width: 400px;
+    width: 100%;
     margin-bottom: 20px;
     background-color: transparent;
     font-size: 14px;
@@ -188,14 +198,18 @@ h3 {
 .js-new-event-form input[type=text],
 .js-new-event-form input[type=date],
 .js-new-event-form input[type=time],
-.js-new-event-form textarea
+.js-new-event-form textarea,
+.edit-event-form input[type=text],
+.edit-event-form input[type=date],
+.edit-event-form input[type=time],
+.edit-event-form textarea
 {
     background: transparent;
     border: none;
     border-bottom: 1px dashed #83A4C5;
-    width: 275px;
+    width: 90%;
     outline: none;
-    padding: 0px 5px 0px 0px;
+    padding-left: 5px;
     font-style: italic;
 }
 
@@ -205,7 +219,7 @@ h3 {
     outline: none;
     border: none;
     border-bottom: 1px dashed #E7BB41;
-    width: 275px;
+    width: 90%;
     overflow: hidden;
     resize:none;
     height:20px;
@@ -263,7 +277,7 @@ select {
     5px 5px,
     1px 1.5em;
   background-repeat: no-repeat;
-  width: 270px;
+  width: 90%;
 }
 
 select:focus {
@@ -300,7 +314,12 @@ button {
 	border: none;
 	border-radius: 5px;
 	margin-bottom: 10px;
-	margin-left: 5px;
+}
+
+
+
+.index-button {
+	margin-left: 5%;
 }
  /* Checkbox Styling */
 
@@ -428,16 +447,18 @@ button {
 }
 
 
-.register-button, .admin-login, .crew-login, .login-button, .availability-submit {
-	width: 275px;
+.register-button, .admin-login, .crew-login, .login-button {
+	width: 80%;
 	font-family: 'Bangers', sans-serif;
 	letter-spacing: 1px;
 }
 
 .availability-submit {
-	margin-left: 75px;
+	width: 40%;
+	margin-left: 30%;
+	margin-right: 30%;
 }
-font
+
 .edit-put-submit {
 	margin-top: 15px;
 }
@@ -469,4 +490,19 @@ button:active {
 fieldset {
 	border: none;
 	background-color: transparent;
+}
+
+@media only screen and (min-width: 720px) {
+	.register-form, .login-form, .category-values, .event, .js-new-event-form, .availability-form {
+		width: 40%;
+	}
+
+	.register-form-element {
+		width: 90%;
+	}
+
+	.event-form {
+		width: 40%;
+	}
+
 }
