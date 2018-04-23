@@ -74,7 +74,7 @@ h3 {
 .assign-container {
 	background-color: transparent;
 	text-align: right;
-	padding-right: 12%
+	padding-right: 17%;
 }
 
 .event-details, legend, .positions-form {
@@ -165,10 +165,14 @@ h3 {
 
 .message {
 	font-size: 18px;
-	width: 40%px;
+	width: 40%;
     background-color: transparent;
     text-align: center;
     margin: 0 auto;
+}
+
+.sport-message, .opponent-message, .location-message, .position-message {
+	background-color: transparent;
 }
 
 .register-form label, .login-form label, .edit-item-form label, .js-new-event-form label, .edit-event-form label {
@@ -463,12 +467,15 @@ button {
 	margin-top: 15px;
 }
 
-
+select:hover {
+	cursor: pointer;
+}
 
 button:hover {
 	background-color: #E7BB41;
 	color: #393E41;
 	border-radius: 5px;
+	cursor: pointer;
 }
 
 button:active {

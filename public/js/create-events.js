@@ -96,7 +96,7 @@ function getNewSport(callback) {
             dataType: 'json',
             success: callback,
             error: error => {
-            	$('.sport-message').html(`<p>Please enter a sport to add.</p>`)
+            	$('.sport-message').html(`<p class="sport-message">Please enter a sport to add.</p>`)
             }
         })
     })
@@ -121,7 +121,7 @@ function getNewOpponent(callback) {
             dataType: 'json',
             success: callback,
             error: error => {
-            	$('.opponent-message').html(`<p>Please enter an opponent to add.</p>`)
+            	$('.opponent-message').html(`<p class="opponent-message">Please enter an opponent to add.</p>`)
             }
         })
     })
@@ -146,7 +146,7 @@ function getNewLocation(callback) {
             dataType: 'json',
             success: callback,
             error: error => {
-            	$('.location-message').html(`<p>Please enter a location to add.</p>`)
+            	$('.location-message').html(`<p class="location-message">Please enter a location to add.</p>`)
             }
         })
     })
@@ -171,7 +171,7 @@ function getNewPosition(callback) {
             dataType: 'json',
             success: callback,
             error: error => {
-            	$('.position-message').html(`<p>Please enter a position to add.</p>`)
+            	$('.position-message').html(`<p class="position-message">Please enter a position to add.</p>`)
             }
         })
     })

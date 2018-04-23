@@ -22,7 +22,7 @@ function getEventsForForm() {
         if (availability[index] != undefined) {
                 crewAvailability = availability[index].availableCrew
         }        
-        if (crewAvailability.includes(user)) {
+        if (crewAvailability != null && crewAvailability.includes(user)) {
             $('.schedule').append(
             `<div class="event-container event-checkbox">
                     <input type="checkbox" id="${events[index].id}" class="id event-availability" checked>
