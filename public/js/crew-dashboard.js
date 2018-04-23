@@ -29,10 +29,25 @@ function getEvents() {
             const eventPositions = events[index].positions
             if (crewArray === null || crewArray.length == 0) {
                 $('.schedule').append(
-                    `<br><div class="event" id="${events[index].id}"><span class="date">${events[index].date}</span> <span class="time">${events[index].time}</span> <span class="call">${events[index].call}</span> <span class="sport">${events[index].sport}</span> vs. <span class="opponent">${events[index].opponent}</span> <span class="location">${events[index].location}</span><button class="edit-event-button">Edit Event</button><button class="delete-event-button">Delete Event</button><br></div>`)
+                    `<br>
+                    <div class="event" id="${events[index].id}">
+                    <p class="event-details">Date: <span class="date event-details">${events[index].date}</span></p>
+                    <p class="event-details">Game Time: <span class="time event-details">${events[index].time}</span></p>
+                    <p class="event-details">Call Time: <span class="call event-details">${events[index].call}</span></p>                    
+                    <p class="event-details">Event: <span class="sport event-details">${events[index].sport}</span> vs. <span class="opponent event-details">${events[index].opponent}</span></p>
+                    <p class="event-details">Location: <span class="location event-details">${events[index].location}</span></p></div>`)
             } else {
                 $('.schedule').append(
-                    `<br><div class="event" id="${events[index].id}"><span class="date">${events[index].date}</span> <span class="time">${events[index].time}</span> <span class="call">${events[index].call}</span> <span class="sport">${events[index].sport}</span> vs. <span class="opponent">${events[index].opponent}</span> <span class="location">${events[index].location}</span><button class="edit-event-button">Edit Event</button><button class="delete-event-button">Delete Event</button><br><p>Crew:</p>${crew}<br><br></div>`)
+                    `<br>
+                    <div class="event" id="${events[index].id}">
+                    <p class="event-details">Date: <span class="date event-details">${events[index].date}</span></p>
+                    <p class="event-details">Game Time: <span class="time event-details">${events[index].time}</span></p>
+                    <p class="event-details">Call Time: <span class="call event-details">${events[index].call}</span></p>                    
+                    <p class="event-details">Event: <span class="sport event-details">${events[index].sport}</span> vs. <span class="opponent event-details">${events[index].opponent}</span></p>
+                    <p class="event-details">Location: <span class="location event-details">${events[index].location}</span></p>
+                    <p class="event-details">Crew:</p>${crew}
+                    <br>
+                    </div>`)
             }
         }
 
