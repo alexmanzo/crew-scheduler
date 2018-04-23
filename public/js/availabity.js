@@ -1,23 +1,39 @@
 
 //Populate form with events
-function getEventsForForm(callback) {
-    $.ajax({
-        method: 'GET',
-        url: '/api/events',
-        success: callback,
-        error: error => console.log('error: events cannot be displayed')
-    })
-}
+function getEventsForForm() {
+    const eventAjax = $.ajax({
+                        method: 'GET',
+                        url: '/api/events',
+                        })
+    const availabilityAjax = $.ajax({
+                                method: 'GET',
+                                url: '/api/availability/',
+                              })
 
-function displayEventsForForm(events) {
-    const user = localStorage.getItem('user')
+
+    $.when(eventAjax, availabilityAjax).done((eventsResponse, availabilityResponse) => {
+        const events = eventsResponse[0]
+        const availability = availabilityResponse[0]
+        const user = localStorage.getItem('user')
+
+        let crewAvailability = null
+
     for (index in events) {
-        if (events[index].availability.includes(user)) {
+        if (availability[index] != undefined) {
+                crewAvailability = availability[index].availableCrew
+        }        
+        if (crewAvailability.includes(user)) {
             $('.schedule').append(
             `<div class="event-container event-checkbox">
-                <input type="checkbox" id="${events[index].id}" class="id event-availability" checked>
-                <label for="${events[index].id}">${events[index].date} ${events[index].time} ${events[index].call} <br> ${events[index].sport} vs. ${events[index].opponent} ${events[index].location}</label>
-            </div>`
+                    <input type="checkbox" id="${events[index].id}" class="id event-availability" checked>
+                    <label for="${events[index].id}"><p class="event-details">Date: <span class="date event-details">${events[index].date}</span></p>
+                        <p class="event-details">Game Time: <span class="time event-details">${events[index].time}</span></p>
+                        <p class="event-details">Call Time: <span class="call event-details">${events[index].call}</span></p>                    
+                        <p class="event-details">Event: <span class="sport event-details">${events[index].sport}</span> vs. <span class="opponent event-details">${events[index].opponent}</span></p>
+                        <p class="event-details">Location: <span class="location event-details">${events[index].location}</span></p>
+                        <br>
+                    </label>
+                </div>`
             )
         } else {
             $('.schedule').append(
@@ -47,13 +63,8 @@ function displayEventsForForm(events) {
     })      
 
     }   
+    })
 }
-
-
-function getAndDisplayEventsForForm() {
-    getEventsForForm(displayEventsForForm)
-}
-
        
 // Add user availability to API
 
@@ -99,7 +110,7 @@ function showUserAsAvailable() {
 
 
 
-getAndDisplayEventsForForm()
+getEventsForForm()
 showUserAsAvailable()
 
 

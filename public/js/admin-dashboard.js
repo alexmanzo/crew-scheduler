@@ -111,12 +111,13 @@ function editEvent() {
 
             return [year, month, day].join('-');
         }
+
         let id = $(e.currentTarget).parent('div').attr('id')
-        let currentDate = formatDate($(e.currentTarget).siblings('.date').text())
-        let currentTime = $(e.currentTarget).siblings('.time').text().slice(0, 5).split(':')
+        let currentDate = formatDate($(e.currentTarget).siblings('.event-details').children('.date').text())
+        let currentTime = $(e.currentTarget).siblings('.event-details').children('.time').text().slice(0, 5).split(':')
 
         function formatEventTime(currentTime) {
-            if ($(e.currentTarget).siblings('.time').text().includes('PM')) {
+            if ($(e.currentTarget).siblings('.event-details').children('.time').text().includes('PM')) {
                 let hour = parseInt(currentTime[0])
                 hour += 12
                 currentTime.splice(0, 1, hour.toString())
@@ -125,11 +126,12 @@ function editEvent() {
                 return currentTime.join(':')
             }
         }
+
         let timeForForm = formatEventTime(currentTime)
-        let currentCall = $(e.currentTarget).siblings('.call').text().slice(0, 5).split(':')
+        let currentCall = $(e.currentTarget).siblings('.event-details').children('.call').text().slice(0, 5).split(':')
 
         function formatCallTime(currentCall) {
-            if ($(e.currentTarget).siblings('.call').text().includes('PM')) {
+            if ($(e.currentTarget).siblings('.event-details').children('.call').text().includes('PM')) {
                 let hour = parseInt(currentCall[0])
                 hour += 12
                 currentCall.splice(0, 1, hour.toString())
@@ -138,12 +140,11 @@ function editEvent() {
                 return currentCall.join(':')
             }
         }
-        let callForForm = formatCallTime(currentCall)
-        let currentSport = $(e.currentTarget).siblings('.sport').text()
-        let currentOpponent = $(e.currentTarget).siblings('.opponent').text()
-        let currentLocation = $(e.currentTarget).siblings('.location').text()
 
-        populateAllForms()
+        let callForForm = formatCallTime(currentCall)
+        let currentSport = $(e.currentTarget).siblings('.event-details').children('.sport').text()
+        let currentOpponent = $(e.currentTarget).siblings('.event-details').children('.opponent').text()
+        let currentLocation = $(e.currentTarget).siblings('.event-details').children('.location').text()
 
         $(e.currentTarget).parent('div').append(`
             <br>
@@ -180,7 +181,10 @@ function editEvent() {
                         </select>
                     </fieldset>  
                     <button type="submit" class="update-event-submit">Update</button>
+                    <button type="submit" class="cancel-update-button">Cancel</button>
                     </form>`)
+
+        populateAllForms()
 
     })
     //API Requests to populate form data
@@ -294,6 +298,11 @@ function handleEditEventSubmit() {
                 $('.event-edit').prop('hidden', true)
             }
         })
+    })
+
+    $('.schedule').on('click', '.cancel-update-button', (e) => {
+        e.preventDefault()
+        $('.event-edit').prop('hidden', true)
     })
 }
 

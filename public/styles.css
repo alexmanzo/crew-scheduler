@@ -492,6 +492,11 @@ fieldset {
 	background-color: transparent;
 }
 
+input::placeholder {
+	color: #b8b7b2;
+	font-size: 18px;
+}
+
 @media only screen and (min-width: 720px) {
 	.register-form, .login-form, .category-values, .event, .js-new-event-form, .availability-form {
 		width: 40%;

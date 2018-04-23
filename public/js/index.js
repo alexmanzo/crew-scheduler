@@ -32,9 +32,13 @@ $('.register-form').on('click', '.register-button', e => {
 
 			},
 			error: error => {
-				console.log(error)
-				$('.message').html('Please fill in all values.')
-			}
+				const parsedResponse = JSON.parse(error.responseText)
+				if (parsedResponse.message.toLowerCase() === 'username already taken') {
+					$(".message").html(`<p class="message">Error: ${parsedResponse.message.toLowerCase()}</p>`)
+				} else {
+					$(".message").html(`<p class="message">Error: ${parsedResponse.location} ${parsedResponse.message.toLowerCase()}</p>`)
+				}
+          	}
 
 		})
 	
