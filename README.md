@@ -1,7 +1,7 @@
 <h1>Crew Scheduler App</h1>
 
 <h2>Live Site</h2>
-<a href="https://fierce-wildwood-43879.herokuapp.com/" target="_blank">https://fierce-wildwood-43879.herokuapp.com/</a>
+<a href="https://fierce-wildwood-43879.herokuapp.com/" target=_blank>https://fierce-wildwood-43879.herokuapp.com/</a>
 
 <h2>Summary</h2>
 <p>In my current full-time work, I manage a student group of 30-40 students to staff up to 100 live productions of sporting events throughought the year. Managing availability and scheduling for several events with an array of needs, I wanted to develop an web application that would make this process easier.
