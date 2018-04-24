@@ -25,8 +25,12 @@ function getEvents() {
 
             $.when(crewAjax).done(crewResponse => {
                 // Formatting for crew on each event, and ensures crew is always listed in same order every time.
-                const sortedCrew = crewResponse[0].crew.sort((a, b) => { return (a.position > b.position) ? 1 : ((b.position > a.position) ? -1 : 0) })
-                const crewArray = Object.values(sortedCrew).map(pos => Object.values(pos).toString())
+                let sortedCrew;
+                let crewArray = []
+                if (crewResponse[0] != undefined) {
+                    sortedCrew = crewResponse[0].crew.sort((a, b) => { return (a.position > b.position) ? 1 : ((b.position > a.position) ? -1 : 0) })
+                    crewArray = Object.values(sortedCrew).map(pos => Object.values(pos).toString())
+                }                
                 const fullCrew = crewArray.toString() + ','
                 const regex = /([^,]*),([^,]*),/gi
                 const subst = `$1: $2<br>`
