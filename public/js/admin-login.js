@@ -25,15 +25,16 @@ function saveUser(response) {
             method: 'GET',
             url: `/api/users/${username}`,
             success: res => {
+            	console.log('success')
             	const userFullName = `${res[0].firstName} ${res[0].lastName}`
             	localStorage.setItem('user', userFullName)
             	localStorage.setItem('username', res[0].username)
             	localStorage.setItem('role', res[0].role)
+            	window.location = "admin-dashboard.html" 
             },
-            error: error => console.log('error: events cannot be displayed')
+            error: error => console.log('error')
      })
 
-    window.location = "admin-dashboard.html" 
 }
 
 
