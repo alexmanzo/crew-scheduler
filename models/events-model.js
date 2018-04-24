@@ -9,10 +9,7 @@ const eventSchema = new mongoose.Schema({
 	sport: {type: String, required: true},
 	opponent: {type: String, required: true},
 	location: {type: String, required: true},
-	positions: {type: Array, required: true},
-	availability: {type: Array},
-	crew: {type: Array}
-
+	positions: {type: Array, required: true}
 })
 
 
@@ -25,9 +22,7 @@ eventSchema.methods.serialize = function() {
 		sport: this.sport,
 		opponent: this.opponent,
 		location: this.location,
-		positions: this.positions,
-		availability: this.availability,
-		crew: this.crew
+		positions: this.positions
 	}
 }
 

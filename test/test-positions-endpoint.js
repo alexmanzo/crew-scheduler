@@ -107,4 +107,52 @@ describe('positions API', function() {
 				})
 		})
 	})
+
+	describe('DELETE endpoint', function() {
+		let position;
+		
+		it('should delete a position', function () {
+			return Position
+			.findOne()
+			.then(function(_position) {
+				position = _position
+				return chai.request(app).delete(`/api/positions/${position.id}`)
+			})
+			.then(function(res) {
+				expect(res).to.have.status(204)
+				return Position.findById(position.id)
+			})
+			.then(function(_position) {
+				expect(_position).to.be.null
+			})
+		})
+
+
+	})
+
+	describe('PUT endpoint', function(){
+		it('should update field you send over', function() {
+			const updateData = {
+				position: faker.lorem.word()
+			}
+
+			return Position
+				.findOne()
+				.then(function(position) {
+					updateData.id = position.id
+
+					return chai.request(app)
+						.put(`/api/positions/${position.id}`)
+						.send(updateData)
+				})
+				.then(function(res) {
+					expect(res).to.have.status(204)
+
+					return Position.findById(updateData.id)
+				})
+				.then(function(position) {
+					expect(position.position).to.equal(updateData.position)
+				})
+		})
+	})
 })

@@ -107,4 +107,54 @@ describe('opponents API', function() {
 				})
 		})
 	})
+
+	describe('DELETE endpoint', function() {
+		let opponent;
+		
+		it('should delete a opponent', function () {
+			return Opponent
+			.findOne()
+			.then(function(_opponent) {
+				opponent = _opponent
+				return chai.request(app).delete(`/api/opponents/${opponent.id}`)
+			})
+			.then(function(res) {
+				expect(res).to.have.status(204)
+				return Opponent.findById(opponent.id)
+			})
+			.then(function(_opponent) {
+				expect(_opponent).to.be.null
+			})
+		})
+
+
+	})
+
+	describe('PUT endpoint', function(){
+		it('should update field you send over', function() {
+			const updateData = {
+				opponent: faker.lorem.word()
+			}
+
+			return Opponent
+				.findOne()
+				.then(function(opponent) {
+					updateData.id = opponent.id
+
+					return chai.request(app)
+						.put(`/api/opponents/${opponent.id}`)
+						.send(updateData)
+				})
+				.then(function(res) {
+					expect(res).to.have.status(204)
+
+					return Opponent.findById(updateData.id)
+				})
+				.then(function(opponent) {
+					expect(opponent.opponent).to.equal(updateData.opponent)
+				})
+		})
+	})
+
+	
 })

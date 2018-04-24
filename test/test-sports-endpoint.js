@@ -107,4 +107,56 @@ describe('Sports API', function() {
 				})
 		})
 	})
+
+	describe('DELETE endpoint', function() {
+		let sport;
+		
+		it('should delete a sport', function () {
+			return Sport
+			.findOne()
+			.then(function(_sport) {
+				sport = _sport
+				return chai.request(app).delete(`/api/sports/${sport.id}`)
+			})
+			.then(function(res) {
+				expect(res).to.have.status(204)
+				return Sport.findById(sport.id)
+			})
+			.then(function(_sport) {
+				expect(_sport).to.be.null
+			})
+		})
+
+
+	})
+
+	describe('PUT endpoint', function(){
+		it('should update field you send over', function() {
+			const updateData = {
+				sport: faker.lorem.word()
+			}
+
+			return Sport
+				.findOne()
+				.then(function(sport) {
+					updateData.id = sport.id
+
+					return chai.request(app)
+						.put(`/api/sports/${sport.id}`)
+						.send(updateData)
+				})
+				.then(function(res) {
+					expect(res).to.have.status(204)
+
+					return Sport.findById(updateData.id)
+				})
+				.then(function(sport) {
+					expect(sport.sport).to.equal(updateData.sport)
+				})
+		})
+	})
 })
+
+
+
+
