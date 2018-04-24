@@ -111,7 +111,7 @@ Crew Scheduler allows me to create all events for the year, and then have studen
 <h4>/api/crew/:id/:position</h4>
 <p>Reassigning new crew with PUT functionality automatically removes the old value.</p>
 <p>Model:
-	}
+	{
   		id: 5adf6e69f3db2f00143ae4da,
         eventId: 5adf6e34f3db2f00143ae4d9,
         crew: [
