@@ -12,7 +12,7 @@ Crew Scheduler allows me to create all events for the year, and then have studen
 <h2>Screenshots</h2>
 <h3>Registration Page</h3>
 	<img src="registration.png">
-<h3>Dashboard/h3>
+<h3>Dashboard</h3>
 	<img src="dashboard.png">
 <h3>Event Creation</h3>
 	<img src="event-creation.png">
@@ -22,19 +22,20 @@ Crew Scheduler allows me to create all events for the year, and then have studen
 	<img src="availability.png">
 
 <h2>Technology Used</h2>
-
-	<p>HTML</p>
-	<p>CSS<br>
-	<p>JavaScript</p>
-	<p>jQuery</p>
-	<p>Node.js</p>
-	<p>Express</p>
-	<p>Mocha</p>
-	<p>MongoDB</p>
-	<p>Mongoose</p>
-	<p>Mocha</p>
-	<p>Chai<</p>
-	<p>Passport</p>
+<ul>
+	<li>HTML</li>
+	<li>CSS</li>
+	<li>JavaScript</li>
+	<li>jQuery</li>
+	<li>Node.js</li>
+	<li>Express</li>
+	<li>Mocha</li>
+	<li>MongoDB</li>
+	<li>Mongoose</li>
+	<li>Mocha</li>
+	<li>Chai</li>
+	<li>Passport.js</li>
+</ul>	
 
 
 <h2>Author</h2>
