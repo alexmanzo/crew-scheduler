@@ -1,3 +1,4 @@
+// Populate page with existing events
 function getEventsForForm() {
     const eventAjax = $.ajax({
         method: 'GET',
@@ -11,6 +12,7 @@ function getEventsForForm() {
 
             let crewAvailability = null
 
+            //Store event data
             const eventId = events[index].id
             const date = events[index].date
             const time = events[index].time
@@ -19,15 +21,19 @@ function getEventsForForm() {
             const opponent = events[index].opponent
             const location = events[index].location
 
+            //Get availability for each speicific event
             const availabilityAjax = $.ajax({
                 method: 'GET',
                 url: `/api/availability/${eventId}`,
             })
 
             $.when(availabilityAjax).done(availability => {
+                //Accounts for if no availability exists yet.
                 if (availability[0] != undefined) {
                     crewAvailability = availability[0].availableCrew
                 }
+
+                //If users is already listed as available for an event, page will remember and automatically keep that event checked.
                 if (crewAvailability != null && crewAvailability.includes(user)) {
                     $('.schedule').append(
                         `<div class="event-container event-checkbox">
@@ -116,12 +122,12 @@ function showUserAsAvailable() {
     })
 }
 
+function handleAvailabilityPage() {
+    getEventsForForm()
+    showUserAsAvailable()
+}
 
-
-getEventsForForm()
-showUserAsAvailable()
-
-
+//Redirect to return to dashboard
 $('#dashboard').on('click', (e) => {
     e.preventDefault()
     const userRole = localStorage.getItem('role')
@@ -131,3 +137,6 @@ $('#dashboard').on('click', (e) => {
         window.location = 'crew-dashboard.html'
     }
 })
+
+
+handleAvailabilityPage()

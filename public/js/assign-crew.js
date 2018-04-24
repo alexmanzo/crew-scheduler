@@ -1,5 +1,4 @@
-//Populate form with events
-
+//Populate form with existing events
 function getEventsForForm() {
     const eventAjax = $.ajax({
         method: 'GET',
@@ -12,6 +11,7 @@ function getEventsForForm() {
             const crewPositions = events[index].positions
             let positionsToStaff = []
 
+            //Store event data
             const eventId = events[index].id
             const date = events[index].date
             const time = events[index].time
@@ -20,6 +20,7 @@ function getEventsForForm() {
             const opponent = events[index].opponent
             const location = events[index].location
 
+            //Request crew and availability for each specific event
             const availabilityAjax = $.ajax({
                 method: 'GET',
                 url: `/api/availability/${eventId}`,
@@ -37,6 +38,7 @@ function getEventsForForm() {
                 let crewAvailability;
                 let availableCrew = []
 
+                // If statement accounts for if no availability exists for the event yet. Otherwise, creates an array of all people available for event.
                 if (availability[0] != undefined) {
                     crewAvailability = availability[0].availableCrew
 
@@ -47,20 +49,23 @@ function getEventsForForm() {
                 }
 
                 for (let j = 0; j < crewPositions.length; j++) {
+                    // Checks to see if crew already exists on event, and sorts the crew so it will display the same every time.
                     let sortedCrew = null
                     if (crews.length > 0 && crews[0].crew != undefined) {
                         sortedCrew = crews[0].crew.sort((a, b) => { return (a.position > b.position) ? 1 : ((b.position > a.position) ? -1 : 0) })
                     }
-                    if (crews[0] === undefined || crews[0].crew === undefined ||crews[0].crew.length === 0 || sortedCrew[j] === undefined) {
+
+                    // Accounts for if no crew yet exists.
+                    if (crews[0] === undefined || crews[0].crew === undefined || crews[0].crew.length === 0 || sortedCrew[j] === undefined) {
                         positionsToStaff.push(`
-                    <div class="assign-container">
-                        <label for="${crewPositions[j]}" class="label assign-event-details" id="${crewPositions[j]}">${crewPositions[j]}</label>
+                        <div class="assign-container">
+                            <label for="${crewPositions[j]}" class="label assign-event-details" id="${crewPositions[j]}">${crewPositions[j]}</label>
                             <select class="available-crew" name="${crewPositions[j]}" id="${crewPositions[j]}">
                                 <option disabled selected>Choose Crew</option>
                                 ${availableCrew.join()}
                             </select>
                             <button type="submit" class="crew-assign-submit">Save</button> 
-                            </div>     
+                        </div>     
                         `)
                     } else if (sortedCrew[j].position === crewPositions[j]) {
                         const crewIndex = availableCrew.indexOf(`<option>${sortedCrew[j].crewMember}</option>`)
@@ -69,7 +74,7 @@ function getEventsForForm() {
                         }
                         positionsToStaff.push(`
                             <div class="assign-container">
-                            <label for="${crewPositions[j]}" class="label assign-event-details" id="${crewPositions[j]}">${crewPositions[j]}</label>
+                                <label for="${crewPositions[j]}" class="label assign-event-details" id="${crewPositions[j]}">${crewPositions[j]}</label>
                                 <select class="available-crew" name="${crewPositions[j]}" id="${crewPositions[j]}">
                                     <option selected>${sortedCrew[j].crewMember}</option>
                                     ${availableCrew.join()}
@@ -106,21 +111,21 @@ function getEventsForForm() {
                     contentType: 'application/json',
                     dataType: 'json',
                     success: response => $('.message').html(response),
-                    error: error => $('.message').html(error)   
+                    error: error => $('.message').html(error)
                 })
 
-             //end of availability/crew when    
-            })      
 
-            //for for loop through events[index]
+            })
+
+
         }
-        // for $.when eventAjax
+
     })
-    //end of function
+
 }
 
 
-// Edit events to add crew.
+// Assigns crew to events.
 function assignCrew() {
     $('.schedule').on('click', '.crew-assign-submit', (e) => {
         e.preventDefault()
@@ -132,6 +137,7 @@ function assignCrew() {
             method: 'GET',
             url: `/api/crew/${eventId}`,
         })
+        // In event the crew is being updated, this avoids duplicate listing on positions. Before "Camera 1" is assigned, any existing "Camera 1" will be removed.
         const removePositionAjax = crewAjax.then((response) => {
             crewId = response[0].id
             return $.ajax({
@@ -157,14 +163,15 @@ function assignCrew() {
     })
 }
 
+function handleAssignCrewPage() {
+    getEventsForForm()
+    assignCrew()
+}
 
-
-
-getEventsForForm()
-assignCrew()
-
-
+// Redirect for dashboard
 $('#dashboard').on('click', (e) => {
     e.preventDefault()
     window.location = 'admin-dashboard.html'
 })
+
+handleAssignCrewPage()

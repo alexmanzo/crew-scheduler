@@ -1,3 +1,4 @@
+//Populate page with existing events
 function getEvents() {
     const eventAjax = $.ajax({
         method: 'GET',
@@ -60,26 +61,28 @@ function getEvents() {
 
 
 }
-function getAndDisplayEvents() {
-    getEvents(displayEvents);
+
+
+function watchSignOutClick() {
+    $('#sign-out').click((e) => {
+        e.preventDefault()
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        localStorage.removeItem('username')
+        localStorage.removeItem('role')
+        window.location.href = "/"
+    })
 }
 
-function watchSignOutClick(){
-  $('#sign-out').click((e) => {
-    e.preventDefault()
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
-    localStorage.removeItem('username')
-    localStorage.removeItem('role')
-    window.location.href = "/"
-  })
+function handleCrewDashboard() {
+    getEvents()
+    watchSignOutClick()
 }
 
-
+// Navigation Re-direct
 $('#edit-availability').on('click', (e) => {
-	e.preventDefault()
-	window.location = 'availability.html'
+    e.preventDefault()
+    window.location = 'availability.html'
 })
 
-getEvents()
-watchSignOutClick()
+handleCrewDashboard()

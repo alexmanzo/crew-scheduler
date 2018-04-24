@@ -1,4 +1,4 @@
-//API Requests to populate form data
+// API Requests to populate form data
 function getSportsForForm(callback) {
     $.ajax({
         method: 'GET',
@@ -20,7 +20,7 @@ function getOpponentsForForm(callback) {
     $.ajax({
         method: 'GET',
         url: '/api/opponents',
-        success: callback,	
+        success: callback,
         error: error => console.log('error: opponents cannot be displayed')
     })
 }
@@ -48,7 +48,7 @@ function populateFormWithPositions(data) {
             `<div class="positions-form checkbox">
                 <input type="checkbox" id="${data[index].position}" value="${data[index].position}">
                 <label for="${data[index].position}" class="checkbox-label">${data[index].position}</label>
-			</div>`
+            </div>`
         )
     }
 }
@@ -79,7 +79,6 @@ function populateAllForms() {
     getLocationsForForm(populateFormWithLocations)
 }
 
-populateAllForms()
 
 // Add new values to API
 
@@ -96,7 +95,7 @@ function getNewSport(callback) {
             dataType: 'json',
             success: callback,
             error: error => {
-            	$('.sport-message').html(`<p class="sport-message">Please enter a sport to add.</p>`)
+                $('.sport-message').html(`<p class="sport-message">Please enter a sport to add.</p>`)
             }
         })
     })
@@ -121,7 +120,7 @@ function getNewOpponent(callback) {
             dataType: 'json',
             success: callback,
             error: error => {
-            	$('.opponent-message').html(`<p class="opponent-message">Please enter an opponent to add.</p>`)
+                $('.opponent-message').html(`<p class="opponent-message">Please enter an opponent to add.</p>`)
             }
         })
     })
@@ -146,7 +145,7 @@ function getNewLocation(callback) {
             dataType: 'json',
             success: callback,
             error: error => {
-            	$('.location-message').html(`<p class="location-message">Please enter a location to add.</p>`)
+                $('.location-message').html(`<p class="location-message">Please enter a location to add.</p>`)
             }
         })
     })
@@ -171,7 +170,7 @@ function getNewPosition(callback) {
             dataType: 'json',
             success: callback,
             error: error => {
-            	$('.position-message').html(`<p class="position-message">Please enter a position to add.</p>`)
+                $('.position-message').html(`<p class="position-message">Please enter a position to add.</p>`)
             }
         })
     })
@@ -180,9 +179,9 @@ function getNewPosition(callback) {
 function addNewPositionToForm(data) {
     $("#positions").append(
         `<div>
-				<input type ="checkbox" id="${data.position}" name="position" value="${data.position}">
-				<label for="${data.position}">${data.position}</label>
-			</div>`
+                <input type ="checkbox" id="${data.position}" name="position" value="${data.position}">
+                <label for="${data.position}">${data.position}</label>
+            </div>`
     )
 }
 
@@ -194,56 +193,56 @@ function addNewValuesToForm() {
 }
 
 
-
-addNewValuesToForm()
-
-
 // Handle Form Submit and Create Event
 
 function handleFormSubmit(callback) {
     $('.js-new-event-form').on('submit', e => {
-            e.preventDefault()
-            let eventDate = $('#date').val()
-            let eventTime = $('#time').val()
-            let eventCall = $('#call').val()
-            let eventSport = $('#sport').val()
-            let eventOpponent = $('#opponent').val()
-            let eventLocation = $('#location').val()
-            let eventPositions = $("#positions input:checkbox:checked").map(function() {
-                return $(this).val()
-            }).get()
+        e.preventDefault()
+        let eventDate = $('#date').val()
+        let eventTime = $('#time').val()
+        let eventCall = $('#call').val()
+        let eventSport = $('#sport').val()
+        let eventOpponent = $('#opponent').val()
+        let eventLocation = $('#location').val()
+        let eventPositions = $("#positions input:checkbox:checked").map(function() {
+            return $(this).val()
+        }).get()
 
-            $.ajax({
-                method: 'POST',
-                url: '/api/events',
-                data: JSON.stringify({
-                    date: eventDate,
-                    time: eventTime,
-                    call: eventCall,
-                    sport: eventSport,
-                    opponent: eventOpponent,
-                    location: eventLocation,
-                    positions: eventPositions
-                }),
-                contentType: 'application/json',
-                dataType: 'json',
-                success: callback,
-                error: error => {
-					$('.message').html(`<p>Please fill out all fields</p>`)
-				}		
-			})	
-	})
-}		
+        $.ajax({
+            method: 'POST',
+            url: '/api/events',
+            data: JSON.stringify({
+                date: eventDate,
+                time: eventTime,
+                call: eventCall,
+                sport: eventSport,
+                opponent: eventOpponent,
+                location: eventLocation,
+                positions: eventPositions
+            }),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: callback,
+            error: error => {
+                $('.message').html(`<p>Please fill out all fields</p>`)
+            }
+        })
+    })
+}
 
 function displaySuccessMessage(data) {
     $('.message').html(`<p>Your event was created successfully!</p>`)
     $('.js-new-event-form').trigger('reset')
 }
 
-handleFormSubmit(displaySuccessMessage)
+function handleCreateEventsPage() {
+    handleFormSubmit(displaySuccessMessage)
+    populateAllForms()
+    addNewValuesToForm()
+}
 
+//Redirect to go back to dashboard.
 $('#dashboard').on('click', (e) => {
     e.preventDefault()
     window.location = 'admin-dashboard.html'
 })
-

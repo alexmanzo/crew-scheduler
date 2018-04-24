@@ -8,6 +8,7 @@ const crewSchema = new mongoose.Schema({
 	crew: Array
 })
 
+//Prevents creating multiple crew object for the same event.
 crewSchema.plugin(uniqueValidator, { message: 'All events already accounted for.' })
 
 crewSchema.methods.serialize = function() {

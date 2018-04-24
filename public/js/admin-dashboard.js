@@ -1,3 +1,4 @@
+//Populate page with existing events
 function getEvents() {
     const eventAjax = $.ajax({
         method: 'GET',
@@ -6,6 +7,8 @@ function getEvents() {
 
     $.when(eventAjax).done(events => {
         for (index in events) {
+
+            //Store event data
             const eventId = events[index].id
             const date = events[index].date
             const time = events[index].time
@@ -14,12 +17,14 @@ function getEvents() {
             const opponent = events[index].opponent
             const location = events[index].location
 
+            //Request crew for each specific event
             const crewAjax = $.ajax({
                 method: 'GET',
                 url: `api/crew/${eventId}`
             })
 
             $.when(crewAjax).done(crewResponse => {
+                // Formatting for crew on each event, and ensures crew is always listed in same order every time.
                 const sortedCrew = crewResponse[0].crew.sort((a, b) => { return (a.position > b.position) ? 1 : ((b.position > a.position) ? -1 : 0) })
                 const crewArray = Object.values(sortedCrew).map(pos => Object.values(pos).toString())
                 const fullCrew = crewArray.toString() + ','
@@ -27,7 +32,7 @@ function getEvents() {
                 const subst = `$1: $2<br>`
                 const crew = fullCrew.replace(regex, subst)
 
-
+                //If there is no crew assigned for an event yet, it will list event without crew.
                 if (crewArray === null || crewArray.length == 0) {
                     $('.schedule').append(
                         `<br>
@@ -61,7 +66,7 @@ function getEvents() {
 
 }
 
-
+// Navigation re-directs
 $('#new-event').on('click', (e) => {
     e.preventDefault()
     window.location = 'create-events.html'
@@ -78,7 +83,7 @@ $('#edit-availability').on('click', (e) => {
     window.location = 'availability.html'
 })
 
-//Edit or Delete Events
+// Delete Events
 function deleteEvent() {
     $('.schedule').on('click', '.delete-event-button', (e) => {
         e.preventDefault()
@@ -98,10 +103,11 @@ function deleteEvent() {
     })
 }
 
+// Edit Events
 function editEvent() {
     $('.schedule').on('click', '.edit-event-button', (e) => {
         e.preventDefault()
-
+        // In order to populate the form with existing values, dates and times need to be re-formatted to be recognized.
         function formatDate(date) {
             let d = new Date(date),
                 month = '' + (d.getMonth() + 1),
@@ -114,10 +120,6 @@ function editEvent() {
             return [year, month, day].join('-');
         }
 
-        let id = $(e.currentTarget).parent('div').attr('id')
-        let currentDate = formatDate($(e.currentTarget).siblings('.event-details').children('.date').text())
-        let currentTime = $(e.currentTarget).siblings('.event-details').children('.time').text().slice(0, 5).split(':')
-
         function formatEventTime(currentTime) {
             if ($(e.currentTarget).siblings('.event-details').children('.time').text().includes('PM')) {
                 let hour = parseInt(currentTime[0])
@@ -128,9 +130,6 @@ function editEvent() {
                 return currentTime.join(':')
             }
         }
-
-        let timeForForm = formatEventTime(currentTime)
-        let currentCall = $(e.currentTarget).siblings('.event-details').children('.call').text().slice(0, 5).split(':')
 
         function formatCallTime(currentCall) {
             if ($(e.currentTarget).siblings('.event-details').children('.call').text().includes('PM')) {
@@ -143,11 +142,17 @@ function editEvent() {
             }
         }
 
+        let id = $(e.currentTarget).parent('div').attr('id')
+        let currentDate = formatDate($(e.currentTarget).siblings('.event-details').children('.date').text())
+        let currentTime = $(e.currentTarget).siblings('.event-details').children('.time').text().slice(0, 5).split(':')
+        let timeForForm = formatEventTime(currentTime)
+        let currentCall = $(e.currentTarget).siblings('.event-details').children('.call').text().slice(0, 5).split(':')
         let callForForm = formatCallTime(currentCall)
         let currentSport = $(e.currentTarget).siblings('.event-details').children('.sport').text()
         let currentOpponent = $(e.currentTarget).siblings('.event-details').children('.opponent').text()
         let currentLocation = $(e.currentTarget).siblings('.event-details').children('.location').text()
 
+        // Populates edit-event form with existing event values.
         $(e.currentTarget).parent('div').append(`
             <br>
             <div class="event-edit" id="${id}">
@@ -186,10 +191,12 @@ function editEvent() {
                     <button type="submit" class="cancel-update-button">Cancel</button>
                     </form>`)
 
+        //Populate edit event form with category data on sports, locations, opponents, etc.
         populateAllForms()
 
     })
-    //API Requests to populate form data
+
+    // API Requests to populate form data
     function getSportsForForm(callback) {
         $.ajax({
             method: 'GET',
@@ -311,9 +318,6 @@ function handleEditEventSubmit() {
 
 
 // Edit or Delete Event Categories
-
-
-
 function handleEditEventCategoriesClick() {
     $('#edit-categories').on('click', (e) => {
         e.preventDefault()
@@ -418,7 +422,7 @@ function watchSignOutClick() {
     })
 }
 
-function deleteItem() {
+function deleteCategoryItem() {
     $('.category-values').on('click', '.delete-button', (e) => {
         e.preventDefault()
         const category = $(e.currentTarget).parent('div').attr('id')
@@ -439,7 +443,7 @@ function deleteItem() {
 }
 
 
-function handleEditItemClick() {
+function handleEditCategoryItem() {
     $('.category-values').on('click', '.edit-button', (e) => {
         e.preventDefault()
         const category = $(e.currentTarget).parent('div').attr('id')
@@ -476,17 +480,18 @@ function handleEditItemClick() {
 
 function deleteAndEditCategories() {
     handleEditEventCategoriesClick()
-    handleEditItemClick()
+    handleEditCategoryItem()
     handleSelectCategory()
-    deleteItem()
+    deleteCategoryItem()
+    handleEditEventSubmit()
 }
 
+function handleAdminDashboard() {
+    getEvents()
+    editEvent()
+    deleteEvent()
+    deleteAndEditCategories()
+    watchSignOutClick()
+}
 
-
-
-deleteAndEditCategories()
-getEvents()
-deleteEvent()
-editEvent()
-handleEditEventSubmit()
-watchSignOutClick()
+handleAdminDashboard()

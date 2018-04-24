@@ -8,6 +8,7 @@ const availabilitySchema = new mongoose.Schema({
 	availableCrew: {type: Array},
 })
 
+//Prevents creating multiple availability objects for the same event.
 availabilitySchema.plugin(uniqueValidator, { message: 'All events already accounted for.' })
 
 
