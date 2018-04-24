@@ -241,6 +241,8 @@ function handleCreateEventsPage() {
     addNewValuesToForm()
 }
 
+handleCreateEventsPage()
+
 //Redirect to go back to dashboard.
 $('#dashboard').on('click', (e) => {
     e.preventDefault()
