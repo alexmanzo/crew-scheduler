@@ -25,7 +25,6 @@ function saveUser(response) {
             method: 'GET',
             url: `/api/users/${username}`,
             success: res => {
-            	console.log('success')
             	const userFullName = `${res[0].firstName} ${res[0].lastName}`
             	localStorage.setItem('user', userFullName)
             	localStorage.setItem('username', res[0].username)
