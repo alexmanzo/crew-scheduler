@@ -3,54 +3,59 @@ function getEvents() {
         method: 'GET',
         url: '/api/events',
     })
-    const crewAjax = $.ajax({
-        method: 'GET',
-        url: 'api/crew/'
-    })
 
-
-
-    $.when(eventAjax, crewAjax).done((eventsResponse, crewResponse) => {
-        const events = eventsResponse[0]
-        const crews = crewResponse[0]
+    $.when(eventAjax).done(events => {
         for (index in events) {
-            let sortedCrew = null
-            let crewArray = null
-            let crew = null
-            if (crews.length > 0) {
-                sortedCrew = crews[index].crew.sort((a, b) => { return (a.position > b.position) ? 1 : ((b.position > a.position) ? -1 : 0) }) 
-                crewArray = Object.values(sortedCrew).map(pos => Object.values(pos).toString())
+            const eventId = events[index].id
+            const date = events[index].date
+            const time = events[index].time
+            const call = events[index].call
+            const sport = events[index].sport
+            const opponent = events[index].opponent
+            const location = events[index].location
+
+            const crewAjax = $.ajax({
+                method: 'GET',
+                url: `api/crew/${eventId}`
+            })
+
+            $.when(crewAjax).done(crewResponse => {
+                const sortedCrew = crewResponse[0].crew.sort((a, b) => { return (a.position > b.position) ? 1 : ((b.position > a.position) ? -1 : 0) })
+                const crewArray = Object.values(sortedCrew).map(pos => Object.values(pos).toString())
                 const fullCrew = crewArray.toString() + ','
                 const regex = /([^,]*),([^,]*),/gi
                 const subst = `$1: $2<br>`
-                crew = fullCrew.replace(regex, subst)
-            }
-            
-            const eventPositions = events[index].positions
-            if (crewArray === null || crewArray.length == 0) {
-                $('.schedule').append(
-                    `<br>
-                    <div class="event" id="${events[index].id}">
-                    <p class="event-details">Date: <span class="date event-details">${events[index].date}</span></p>
-                    <p class="event-details">Game Time: <span class="time event-details">${events[index].time}</span></p>
-                    <p class="event-details">Call Time: <span class="call event-details">${events[index].call}</span></p>                    
-                    <p class="event-details">Event: <span class="sport event-details">${events[index].sport}</span> vs. <span class="opponent event-details">${events[index].opponent}</span></p>
-                    <p class="event-details">Location: <span class="location event-details">${events[index].location}</span></p></div>`)
-            } else {
-                $('.schedule').append(
-                    `<br>
-                    <div class="event" id="${events[index].id}">
-                    <p class="event-details">Date: <span class="date event-details">${events[index].date}</span></p>
-                    <p class="event-details">Game Time: <span class="time event-details">${events[index].time}</span></p>
-                    <p class="event-details">Call Time: <span class="call event-details">${events[index].call}</span></p>                    
-                    <p class="event-details">Event: <span class="sport event-details">${events[index].sport}</span> vs. <span class="opponent event-details">${events[index].opponent}</span></p>
-                    <p class="event-details">Location: <span class="location event-details">${events[index].location}</span></p>
+                const crew = fullCrew.replace(regex, subst)
+
+
+                if (crewArray === null || crewArray.length == 0) {
+                    $('.schedule').append(
+                        `<br>
+                    <div class="event" id="${eventId}">
+                    <p class="event-details">Date: <span class="date event-details">${date}</span></p>
+                    <p class="event-details">Game Time: <span class="time event-details">${time}</span></p>
+                    <p class="event-details">Call Time: <span class="call event-details">${call}</span></p>                    
+                    <p class="event-details">Event: <span class="sport event-details">${sport}</span> vs. <span class="opponent event-details">${opponent}</span></p>
+                    <p class="event-details">Location: <span class="location event-details">${location}</span></p>
+                    <button class="edit-event-button">Edit Event</button>
+                    <button class="delete-event-button">Delete Event</button></div>`)
+                } else {
+                    $('.schedule').append(
+                        `<br>
+                    <div class="event" id="${eventId}">
+                    <p class="event-details">Date: <span class="date event-details">${date}</span></p>
+                    <p class="event-details">Game Time: <span class="time event-details">${time}</span></p>
+                    <p class="event-details">Call Time: <span class="call event-details">${call}</span></p>                    
+                    <p class="event-details">Event: <span class="sport event-details">${sport}</span> vs. <span class="opponent event-details">${opponent}</span></p>
+                    <p class="event-details">Location: <span class="location event-details">${location}</span></p>
                     <p class="event-details">Crew:</p>${crew}
                     <br>
+                    <button class="edit-event-button">Edit Event</button>
+                    <button class="delete-event-button">Delete Event</button>
                     </div>`)
-            }
+                }
+            })
         }
-
     })
 
 

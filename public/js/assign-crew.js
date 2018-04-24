@@ -34,12 +34,18 @@ function getEventsForForm() {
             $.when(availabilityAjax, crewAjax).done((availabilityResponse, crewResponse) => {
                 const availability = availabilityResponse[0]
                 const crews = crewResponse[0]
-                const crewAvailability = availability[0].availableCrew
+                let crewAvailability;
                 let availableCrew = []
 
-                for (let i = 0; i < crewAvailability.length; i++) {
-                    availableCrew.push(`<option>${crewAvailability[i]}</option>`)
+                if (availability[0] != undefined) {
+                    crewAvailability = availability[0].availableCrew
+
+                    for (let i = 0; i < crewAvailability.length; i++) {
+                        availableCrew.push(`<option>${crewAvailability[i]}</option>`)
+                    }
+
                 }
+
                 for (let j = 0; j < crewPositions.length; j++) {
                     let sortedCrew = null
                     if (crews.length > 0 && crews[0].crew != undefined) {
