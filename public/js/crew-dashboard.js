@@ -38,8 +38,7 @@ function getEvents() {
                     <p class="event-details">Call Time: <span class="call event-details">${call}</span></p>                    
                     <p class="event-details">Event: <span class="sport event-details">${sport}</span> vs. <span class="opponent event-details">${opponent}</span></p>
                     <p class="event-details">Location: <span class="location event-details">${location}</span></p>
-                    <button class="edit-event-button">Edit Event</button>
-                    <button class="delete-event-button">Delete Event</button></div>`)
+                    </div>`)
                 } else {
                     $('.schedule').append(
                         `<br>
@@ -51,8 +50,6 @@ function getEvents() {
                     <p class="event-details">Location: <span class="location event-details">${location}</span></p>
                     <p class="event-details">Crew:</p>${crew}
                     <br>
-                    <button class="edit-event-button">Edit Event</button>
-                    <button class="delete-event-button">Delete Event</button>
                     </div>`)
                 }
             })

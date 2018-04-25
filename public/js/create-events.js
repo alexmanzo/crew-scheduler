@@ -224,14 +224,14 @@ function handleFormSubmit(callback) {
             dataType: 'json',
             success: callback,
             error: error => {
-                $('.message').html(`<p>Please fill out all fields</p>`)
+                $('.message').html(`<p class="message">Please fill out all fields</p>`)
             }
         })
     })
 }
 
 function displaySuccessMessage(data) {
-    $('.message').html(`<p>Your event was created successfully!</p>`)
+    $('.message').html(`<p class="message">Your event was created successfully!</p>`)
     $('.js-new-event-form').trigger('reset')
 }
 

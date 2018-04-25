@@ -17,37 +17,45 @@
     <main role="main">
         <form class="register-form">
             <br>
+            <label for="role" class="role">Event Scheduler or Crew Member?</label>
             <select name="role" id="role" class="role register-form-select">
                 <option>An Event Scheduler</option>
                 <option>A Crew Member</option>
             </select>
             <br>
-            <label for="role" class="role">Event Scheduler or Crew Member?</label>
             <br>
-            <br>
-            <input type="text" name="first-name" class="first-name register-form-element" />
             <label for="first-name" class="text-label register-form-element">First Name</label>
+            <input type="text" name="first-name" class="first-name register-form-element" />
             <br>
-            <input type="text" name="last-name" class="last-name register-form-element" />
+            <br>
             <label for="last-name" class="text-label register-form-element">Last Name</label>
+            <input type="text" name="last-name" class="last-name register-form-element" />
             <br>
-            <input type="email" name="email" class="email register-form-element" />
+             <br>
             <label for="email" class="text-label register-form-element">Email</label>
+            <input type="email" name="email" class="email register-form-element" />
             <br>
-            <input type="text" name="username" class="username register-form-element" />
+            <br>
             <label for="username" class="text-label register-form-element">Username</label>
+            <input type="text" name="username" class="username register-form-element" />
             <br>
-            <input type="password" name="password" class="password register-form-element" />
+            <br>
             <label for="password" class="text-label register-form-element">Password</label>
+            <input type="password" name="password" class="password register-form-element" />
             <br>
             <br>
+            <div class="message">
+                <p class="message">Demo Account:</p>
+                <p class="message">Use Event Scheduler Login</p>
+                <p class="message">un: demouser</p>
+                <p class="message">pw: password</p>
+            </div>
             <br>
             <button name="button" type="submit" class="register-button index-button">Register</button>
             <br>
             <button class="admin-login index-button">Event Scheduler Login</button>
             <br>
             <button class="crew-login index-button">Crew Login</button>
-            <div class="message"></div>
         </form>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
