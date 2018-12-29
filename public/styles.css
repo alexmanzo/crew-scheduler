@@ -538,6 +538,42 @@ input::placeholder {
     font-size: 18px;
 }
 
+footer {
+    padding: 40px;
+    width: 90%;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: flex-end;
+    text-align: center;
+    display: flex;
+  }
+
+  footer a {
+    color: white;
+    text-align: center;
+  }
+
+  footer a:hover {
+    text-decoration: none;
+    color: #44BBA4;
+  }
+
+  footer i {
+    font-size: 50px;
+  }
+
+  footer a>p:hover {
+    color: #44BBA4;
+  }
+
+  .github > p {
+    margin-top: 5px;
+  }
+
+  .github {
+    padding-left: 20px;
+  }
+
 @media only screen and (min-width: 720px) {
     .register-form,
     .login-form,
